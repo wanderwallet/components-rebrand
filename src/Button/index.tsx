@@ -9,61 +9,52 @@ export const Button = styled.button.attrs<ButtonProps>((props) => ({
   )
 }))<ButtonProps>`
   display: flex;
-  color: rgb(
-    ${(props) =>
-      props.secondary
-        ? props.theme.theme
-        : props.reversed
-        ? props.theme.primaryText
-        : "255, 255, 255"}
-  );
-  background-color: rgba(
-    ${(props) =>
-      props.secondary
-        ? props.theme.theme + ", .2"
-        : (props.reversed ? props.theme.background : props.theme.theme) + ", 1"}
-  );
-  border: none;
   outline: none;
   cursor: pointer;
-  font-size: ${(props) => (props.small ? ".83rem" : "1.05rem")};
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  padding: ${(props) => (props.small ? ".9rem" : "1.2rem")}
-    ${(props) => (props.fullWidth ? "0" : props.small ? "2rem" : "3.35rem")};
-  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
-  border-radius: ${(props) => (props.small ? "19px" : "25px")};
+  padding: 12px 24px;
+  width: ${(props) => (props.fullWidth ? "100%" : "250px")};
+  min-width: 100px;
+  height: 46px;
+  border-radius: 12px;
   text-align: center;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  transition: all 0.23s ease-in-out;
+  gap: ${(props) => (props.icon ? "4px" : "0")};
+  background: ${(props) =>
+    props.theme.button.background[props.variant || "primary"].default};
+  color: ${(props) => props.theme.button.text[props.variant || "primary"]};
 
-  box-shadow: 0 0 0 0
-    rgba(
-      ${(props) =>
-        props.reversed ? props.theme.background : props.theme.theme},
-      ${(props) => (props.secondary ? ".2" : 1)}
-    );
+  &:hover {
+    background: ${(props) =>
+      props.theme.button.background[props.variant || "primary"].hover};
+    border: ${(props) =>
+      props.theme.button.hoverBorder[props.variant || "primary"]};
+  }
 
-  &:hover:not(:active):not(:disabled) {
-    box-shadow: 0 0 0 ${(props) => (props.small ? ".19rem" : ".25rem")}
-      rgba(
-        ${(props) =>
-          props.reversed ? props.theme.background : props.theme.theme},
-        ${(props) => (props.secondary ? ".2" : 1)}
-      );
+  &:active {
+    background: ${(props) =>
+      props.theme.button.background[props.variant || "primary"].active};
   }
 
   &:disabled {
-    opacity: 0.87;
     cursor: not-allowed;
+    background: ${(props) =>
+      props.theme.button.background[props.variant || "primary"].disabled};
+    color: ${(props) => props.theme.button.text.disabled};
   }
 `;
 
+type Variant = "primary" | "secondary" | "secondaryAlt";
+type IconPosition = "left" | "right";
+
 export interface ButtonProps {
-  secondary?: boolean;
-  reversed?: boolean;
-  small?: boolean;
+  variant?: Variant;
   fullWidth?: boolean;
+  icon?: boolean;
+  iconPosition?: IconPosition;
+  disabled?: boolean;
   loading?: boolean;
 }

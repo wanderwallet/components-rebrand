@@ -1,13 +1,6 @@
 import { PropsWithChildren, useState } from "react";
-import {
-  DefaultTheme,
-  ThemeProvider
-} from "styled-components";
-import {
-  ToastData,
-  ToastDataWithID,
-  ToastsContext,
-} from "../Toast/utils";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import { ToastData, ToastDataWithID, ToastsContext } from "../Toast/utils";
 import { nanoid } from "nanoid";
 import { Toasts } from "../Toasts";
 
@@ -38,7 +31,40 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   fail: "#EB0000",
   backgroundSecondary: "#CCCCCC",
   delete: "#F58080",
-  secondaryDelete: "#F58080"
+  secondaryDelete: "#F58080",
+  button: {
+    background: {
+      primary: {
+        default: "linear-gradient(47deg, #5842f8 5.41%, #6b57f9 96%)",
+        hover: "#503ece",
+        active: "#503ece",
+        disabled: "#f5f4ff"
+      },
+      secondary: {
+        default: "#F2F2F7",
+        hover: "#EBEBF0",
+        active: "#F2F2F7",
+        disabled: "#F2F2F7"
+      },
+      secondaryAlt: {
+        default: "#F5F4FF",
+        hover: "#E3E1FA",
+        active: "#F5F4FF",
+        disabled: "#F5F4FF"
+      }
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#291C8B",
+      secondaryAlt: "#291C8B",
+      disabled: "#847eaf"
+    },
+    hoverBorder: {
+      primary: "none",
+      secondary: "1.5px solid #EBEBF0",
+      secondaryAlt: "none"
+    }
+  }
 };
 
 export const ARCONNECT_DARK_THEME: ArconnectTheme = {
@@ -64,12 +90,45 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
   fail: "#FF1A1A",
   backgroundSecondary: "#333333",
   delete: "#8C1A1A",
-  secondaryDelete: "#C51A1A"
+  secondaryDelete: "#C51A1A",
+  button: {
+    background: {
+      primary: {
+        default: "linear-gradient(47deg, #5842F8 5.41%, #6B57F9 96%)",
+        hover: "#503ece",
+        active: "#503ece",
+        disabled: "#2B2269"
+      },
+      secondary: {
+        default: "#333336",
+        hover: "#2C2C2E",
+        active: "#333336",
+        disabled: "#333336"
+      },
+      secondaryAlt: {
+        default: "#403785",
+        hover: "#2A2260",
+        active: "#403785",
+        disabled: "#403785"
+      }
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#EEE",
+      secondaryAlt: "#EEE",
+      disabled: "#8E8D97"
+    },
+    hoverBorder: {
+      primary: "none",
+      secondary: "1.5px solid #2C2C2E",
+      secondaryAlt: "none"
+    }
+  }
 };
 
 export function Provider<T extends ArconnectTheme = ArconnectTheme>({
   children,
-  theme,
+  theme
 }: PropsWithChildren<{ theme: T }>) {
   const [toasts, setToasts] = useState<ToastDataWithID[]>([]);
 

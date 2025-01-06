@@ -27,5 +27,38 @@ declare module "styled-components" {
     backgroundSecondary: string;
     delete: string;
     secondaryDelete: string;
+    button: {
+      background: {
+        primary: {
+          default: string;
+          hover: string;
+          active: string;
+          disabled: string;
+        };
+        secondary: {
+          default: string;
+          hover: string;
+          active: string;
+          disabled: string;
+        };
+        secondaryAlt: {
+          default: string;
+          hover: string;
+          active: string;
+          disabled: string;
+        };
+      };
+      text: {
+        primary: string;
+        secondary: string;
+        secondaryAlt: string;
+        disabled: string;
+      };
+      hoverBorder: {
+        primary: string;
+        secondary: string;
+        secondaryAlt: string;
+      };
+    };
   }
 }

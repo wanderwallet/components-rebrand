@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
 import { Button, ButtonProps } from "./index";
+import { ArrowUpRightIcon } from "@iconicicons/react";
 
 export default {
   title: "Button",
@@ -8,14 +8,18 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => (
-  <Button {...args}>Test</Button>
+  <Button {...args}>
+    Test
+    {args.icon && (
+      <ArrowUpRightIcon style={{ width: "22px", height: "22px" }} />
+    )}
+  </Button>
 );
 const defaultArgs: ButtonProps = {
-  secondary: false,
-  reversed: false,
+  variant: "primary",
   fullWidth: false,
-  small: false,
-  loading: false
+  icon: false,
+  disabled: false
 };
 
 export const Primary = Template.bind({});
@@ -24,5 +28,11 @@ Primary.args = defaultArgs;
 export const Secondary = Template.bind({});
 Secondary.args = {
   ...defaultArgs,
-  secondary: true
+  variant: "secondary"
+};
+
+export const SecondaryAlt = Template.bind({});
+Secondary.args = {
+  ...defaultArgs,
+  variant: "secondaryAlt"
 };
