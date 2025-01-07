@@ -42,6 +42,7 @@ const sizes = {
 export function Text({
   children,
   lineHeight,
+  noMargin = false,
   as = "p",
   size = "md",
   weight = "regular",
@@ -55,6 +56,7 @@ export function Text({
       $weight={weight}
       $variant={variant}
       $lineHeight={lineHeight}
+      $noMargin={noMargin}
       {...props}
     >
       {children}
@@ -67,6 +69,7 @@ const TextElement = styled.p<{
   $weight: keyof typeof fontWeights;
   $variant: "primary" | "secondary";
   $lineHeight?: number;
+  $noMargin?: boolean;
 }>`
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: ${(props) => sizes[props.$size]};
@@ -76,6 +79,7 @@ const TextElement = styled.p<{
     props.$variant === "primary"
       ? props.theme.primaryText
       : props.theme.secondaryText};
+  ${(props) => props.$noMargin && "margin: 0;"}
 `;
 
 export interface TextProps {
@@ -84,4 +88,5 @@ export interface TextProps {
   weight?: keyof typeof fontWeights;
   variant?: "primary" | "secondary";
   lineHeight?: number;
+  noMargin?: boolean;
 }
