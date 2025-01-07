@@ -2943,6 +2943,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@untitled-ui/icons-react@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@untitled-ui/icons-react/-/icons-react-0.1.4.tgz#7f09b7d385c76c51a5b24b41bf4e0145ee64becc"
+  integrity sha512-MLgO1JO5Ku5h588iJjin4JNf8W4TEyAL2Gde6jbBWgh5A2VBwcajRWlGnaGlcQiXYkT6ueYw9ZW9iNBFBUKzTg==
+
 "@vitejs/plugin-react@^3.1.0":
   version "3.1.0"
   resolved "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-3.1.0.tgz"

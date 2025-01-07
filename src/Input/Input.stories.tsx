@@ -1,6 +1,4 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { EyeIcon } from "@iconicicons/react";
-
 import { Input } from "./index";
 import { ComponentProps } from "react";
 
@@ -9,25 +7,23 @@ export default {
   component: Input
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => (
-  <Input type="text" {...args} />
-);
+const Template: ComponentStory<typeof Input> = (args) => {
+  return <Input type="text" {...args} />;
+};
+
 const defaultArgs: ComponentProps<typeof Input> = {
-  small: false,
-  status: "default",
+  size: "normal" as never,
+  variant: "default",
   fullWidth: false,
-  placeholder: "Example text...",
-  label: "Example label"
+  status: "default",
+  disabled: false,
+  errorMessage: "Error: payment method not accepted",
+  placeholder: "Select an option",
+  label: "Label"
 };
 
-export const Basic = Template.bind({});
-Basic.args = defaultArgs;
+export const Normal = Template.bind({});
+Normal.args = { ...defaultArgs };
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  ...defaultArgs,
-  type: "password",
-  label: "Password",
-  placeholder: "Enter password...",
-  icon: <EyeIcon style={{ cursor: "pointer" }} />
-};
+export const Small = Template.bind({});
+Small.args = { ...defaultArgs, size: "small" as never };

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@iconicicons/react": "^1.5.1",
+    "@untitled-ui/icons-react": "^0.1.4",
     "axios": "^1.6.7",
     "framer-motion": "^7.5.3",
     "nanoid": "^4.0.1",

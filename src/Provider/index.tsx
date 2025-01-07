@@ -28,7 +28,7 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   buttonDisabledText: "#DDD9F4",
   inputField: "#757575",
   success: "#17A815",
-  fail: "#EB0000",
+  fail: "#D22B1F",
   backgroundSecondary: "#CCCCCC",
   delete: "#F58080",
   secondaryDelete: "#F58080",
@@ -63,6 +63,27 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
       primary: "none",
       secondary: "1.5px solid #EBEBF0",
       secondaryAlt: "none"
+    }
+  },
+  input: {
+    background: {
+      search: { default: "#f2f2f7", disabled: "#FFF", special: "#F2F2F7" },
+      default: { default: "#f2f2f7", disabled: "#FFF" },
+      dropdown: { default: "#FFF", disabled: "#FFF" }
+    },
+    border: {
+      search: { disabled: "#E4E4EB", focused: "#D6D6DD", special: "#6B57F9" },
+      default: { disabled: "#E4E4EB", focused: "#D6D6DD" },
+      dropdown: { default: "#E4E4EB", disabled: "#E4E4EB", focused: "#D6D6DD" }
+    },
+    placeholder: {
+      search: "#666666",
+      default: "#666666",
+      dropdown: "#121212"
+    },
+    icons: {
+      searchActive: "#6B57F9",
+      searchInactive: "#838383"
     }
   }
 };
@@ -122,6 +143,27 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
       primary: "none",
       secondary: "1.5px solid #2C2C2E",
       secondaryAlt: "none"
+    }
+  },
+  input: {
+    background: {
+      search: { default: "#2C2C2E", disabled: "#2C2C2E", special: "#2C2C2E" },
+      default: { default: "#2C2C2E", disabled: "#2C2C2E" },
+      dropdown: { default: "#242426", disabled: "#2C2C2E" }
+    },
+    border: {
+      search: { disabled: "#2C2C2E", focused: "#333", special: "#6B57F9" },
+      default: { disabled: "#2C2C2E", focused: "#333" },
+      dropdown: { default: "#2C2C2E", disabled: "#2C2C2E", focused: "#333" }
+    },
+    placeholder: {
+      search: "#AAAAAA",
+      default: "#AAAAAA",
+      dropdown: "#EEEEEE"
+    },
+    icons: {
+      searchActive: "#9787FF",
+      searchInactive: "#838383"
     }
   }
 };

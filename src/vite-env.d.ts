@@ -60,5 +60,26 @@ declare module "styled-components" {
         secondaryAlt: string;
       };
     };
+    input: {
+      background: {
+        search: { default: string; disabled: string; special: string };
+        default: { default: string; disabled: string };
+        dropdown: { default: string; disabled: string };
+      };
+      border: {
+        default: { disabled: string; focused: string };
+        search: { disabled: string; focused: string; special: string };
+        dropdown: { default: string; disabled: string; focused: string };
+      };
+      placeholder: {
+        default: string;
+        search: string;
+        dropdown: string;
+      };
+      icons: {
+        searchActive: string;
+        searchInactive: string;
+      };
+    };
   }
 }

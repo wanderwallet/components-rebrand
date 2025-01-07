@@ -32,7 +32,7 @@ Secondary.args = {
 };
 
 export const SecondaryAlt = Template.bind({});
-Secondary.args = {
+SecondaryAlt.args = {
   ...defaultArgs,
   variant: "secondaryAlt"
 };

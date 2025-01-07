@@ -1,162 +1,250 @@
+import {
+  AlertCircle,
+  ChevronDown,
+  SearchSm,
+  XCircle
+} from "@untitled-ui/icons-react";
 import { HTMLProps, ReactNode, useMemo } from "react";
-import { InputStatus } from "../hooks";
 import styled from "styled-components";
+import { InputStatus } from "../hooks";
+
+const heights = {
+  small: "42px",
+  normal: "52px"
+} as const;
 
 export function Input({
   label,
   fullWidth,
-  small,
+  size = "normal" as never,
   status = "default",
-  alternative,
-  icon,
+  disabled,
+  variant = "default",
+  iconLeft,
+  iconRight,
+  errorMessage,
+  special,
   ...props
-}: SharedProps & InputProps & HTMLProps<HTMLInputElement>) {
-  const inputProps = useMemo<any>(
-    () => ({ fullWidth, small, status, alternative, ...props }),
-    [fullWidth, small, status, alternative, props]
+}: Omit<SharedPropsV2, "hasLeftIcon"> &
+  InputV2Props &
+  HTMLProps<HTMLInputElement>) {
+  const inputV2Props = useMemo<any>(
+    () => ({
+      fullWidth,
+      size,
+      variant,
+      status,
+      disabled,
+      iconLeft,
+      iconRight,
+      special,
+      ...props
+    }),
+    [
+      fullWidth,
+      size,
+      variant,
+      status,
+      disabled,
+      iconLeft,
+      iconRight,
+      special,
+      props
+    ]
   );
+
+  const rightInputIcon = () => {
+    if (iconRight) return iconRight;
+    if (variant === "dropdown") return <ChevronDown height={20} width={20} />;
+    if (props.value) return <XCircle height={20} width={20} />;
+    if (status === "error") {
+      return <AlertCircle height={20} width={20} color={"#D22B1F"} />;
+    }
+
+    return null;
+  };
+
+  const leftInputIcon = () => {
+    if (iconLeft) return iconLeft;
+    if (variant === "search") return <SearchIcon disabled={disabled} />;
+    return null;
+  };
+
+  const LeftIconComponent = leftInputIcon();
+  const RightIconComponent = rightInputIcon();
 
   return (
     <>
-      {label && <Label>{label}</Label>}
-      <InputWrapper
-        fullWidth={fullWidth}
-        alternative={alternative}
-        small={small}
-        status={status ?? "default"}
-      >
-        <InputElement {...inputProps} />
-        {icon && (
-          <IconWrapper
-            fullWidth={fullWidth}
-            small={small}
-            status={status ?? "default"}
-          >
-            {icon}
-          </IconWrapper>
-        )}
-      </InputWrapper>
+      {label && <LabelV2>{label}</LabelV2>}
+      <InputContainer fullWidth={fullWidth} size={size}>
+        <InputV2Wrapper
+          fullWidth={fullWidth}
+          size={size}
+          status={status ?? "default"}
+          disabled={disabled}
+          variant={variant}
+          special={special}
+        >
+          {LeftIconComponent && (
+            <IconWrapperV2 position="left">{LeftIconComponent}</IconWrapperV2>
+          )}
+          <InputV2Element {...inputV2Props} disabled={disabled} />
+          {RightIconComponent && (
+            <IconWrapperV2 position="right">{RightIconComponent}</IconWrapperV2>
+          )}
+        </InputV2Wrapper>
+      </InputContainer>
+      {status === "error" && <ErrorMsg>{errorMessage}</ErrorMsg>}
     </>
   );
 }
 
-export interface SharedProps {
+type InputSize = "small" | "normal";
+type InputVariant = "default" | "search" | "dropdown";
+
+export interface SharedPropsV2 {
   fullWidth?: boolean;
-  alternative?: boolean;
-  small?: boolean;
+  size?: InputSize;
+  variant?: InputVariant;
+  special?: boolean;
   status?: InputStatus;
+  disabled?: boolean;
+  hasRightIcon?: boolean;
 }
 
-export interface InputProps {
-  icon?: ReactNode;
+export interface InputV2Props {
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
   label?: ReactNode;
+  errorMessage?: string;
 }
 
-const statusColors = {
-  success: "#14D110",
-  error: "#FF0000",
-  warning: "#FFB800"
-};
+export const InputContainer = styled.div<SharedPropsV2>`
+  height: ${(props) => heights[props.size ?? "normal"]};
+  width: ${(props) => (props.fullWidth ? "calc(100% - 2px)" : "345px")};
+`;
 
-export const InputWrapper = styled.div<SharedProps>`
+export const InputV2Wrapper = styled.div<SharedPropsV2>`
   position: relative;
   display: flex;
-  width: ${(props) => (props.fullWidth ? "calc(100% - 2px)" : "max-content")};
-  border: 1px solid
-    ${(props) =>
-      props.status === "default" || !props.status
-        ? "rgb(" + props.theme.cardBorder + ")"
-        : statusColors[props.status]};
-  border-radius: ${(props) =>
-    props.alternative ? "10" : props.small ? "14" : "18"}px;
+  gap: 4px;
+  align-items: center;
+  padding: ${(props) => (props.size === "small" ? "12px" : "12px 14px")};
+  background: ${(props) =>
+    props.theme.input.background[props.variant ?? "default"].default};
+  border-radius: 10px;
 
   overflow: hidden;
   color: rgb(${(props) => props.theme.cardBorder});
   transition: all 0.13s ease-in-out;
 
+  ${(props) =>
+    props.variant === "dropdown"
+      ? `
+      border: 1.5px solid  ${
+        props.theme.input.border[props.variant || "default"].default
+      };
+      background: ${
+        props.theme.input.background[props.variant || "default"].default
+      };
+      box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+    `
+      : props.variant === "search" && props.special
+      ? `border: 1.5px solid ${
+          props.theme.input.border[props.variant || "default"].special
+        }; background:  ${
+          props.theme.input.background[props.variant || "default"].special
+        };`
+      : ``}
+
+  ${(props) =>
+    props.status === "error" && `border: 1.5px solid ${props.theme.fail}`};
+
+  &:hover {
+    ${(props) =>
+      "border: 1.5px solid " +
+      (props.status === "error" ? props.theme.fail : "")};
+  }
+
   &:focus-within,
   &:active {
-    border-color: ${(props) =>
-      props.status === "default" || !props.status
-        ? "rgba(" + props.theme.theme + ", .5)"
-        : statusColors[props.status]};
-    color: rgb(${(props) => props.theme.theme});
-    box-shadow: 0 0 0 1px
+    border: 1.5px solid
       ${(props) =>
-        props.status === "default" || !props.status
-          ? "rgba(" + props.theme.theme + ", .5)"
-          : statusColors[props.status]};
+        props.status === "error"
+          ? props.theme.fail
+          : props.theme.input.border[props.variant ?? "default"].focused};
   }
+
+  ${(props) =>
+    props.disabled &&
+    `
+    background: ${
+      props.theme.input.background[props.variant ?? "default"].disabled
+    };
+    border: 1.5px solid ${
+      props.theme.input.border[props.variant ?? "default"].disabled
+    };
+    color: #838383;
+  `}
 `;
 
-export const Label = styled.p`
-  font-size: 0.7rem;
+export const LabelV2 = styled.p`
+  font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
-  color: rgb(${(props) => props.theme.secondaryText});
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #666;
   margin: 0;
-  margin-bottom: 0.8em;
+  margin-bottom: 8px;
 `;
 
-export const side_padding = 1.25;
-export const top_padding = 0.75;
+export const ErrorMsg = styled.p`
+  color: ${(props) => props.theme.fail};
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0;
+  padding-top: 8px;
+`;
 
-export const InputElement = styled.input<SharedProps>`
+export const InputV2Element = styled.input<SharedPropsV2>`
+  display: flex;
+  flex: 1;
   outline: none;
   border: none;
-  background-color: ${(props) =>
-    props.alternative ? "rgba(171, 154, 255, 0.15)" : "transparent"};
-  color: rgb(
-    ${(props) => (props.alternative ? "185, 185, 185" : props.theme.theme)}
-  );
+  background-color: transparent;
+  color: ${(props) => props.theme.primaryTextv2};
 
-  font-size: ${(props) => (props.small ? ".9rem" : "1.2rem")};
+  font-size: ${(props) => (props.size === "small" ? "16px" : "18px")};
   font-weight: 500;
-  padding: ${({ small }) =>
-      (small ? (top_padding / 3) * 2 : top_padding) + "rem"}
-    ${({ small }) => (small ? (side_padding / 3) * 2 : side_padding) + "rem"};
   width: 100%;
   transition: all 0.23s ease-in-out;
 
-  ${(props) =>
-    props.alternative &&
-    props.type === "number" &&
-    `
-    -moz-appearance: textfield; 
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  `}
   ::-webkit-input-placeholder {
-    color: rgb(
-      ${(props) =>
-        props.alternative ? "185, 185, 185" : props.theme.cardBorder}
-    );
+    color: ${(props) =>
+      props.theme.input.placeholder[props.variant || "default"]};
   }
 
   :-ms-input-placeholder {
-    color: rgb(
-      ${(props) =>
-        props.alternative ? "185, 185, 185" : props.theme.cardBorder}
-    );
+    color: ${(props) =>
+      props.theme.input.placeholder[props.variant || "default"]};
   }
 
   ::placeholder {
-    color: rgb(
-      ${(props) =>
-        props.alternative ? "185, 185, 185" : props.theme.cardBorder}
-    );
+    color: ${(props) =>
+      props.theme.input.placeholder[props.variant || "default"]};
   }
 `;
 
-export const IconWrapper = styled.div<SharedProps>`
-  position: absolute;
-  display: flex;
-  z-index: 10;
-  font-size: ${(props) => (props.small ? ".9rem" : "1.2rem")};
-  top: 50%;
-  right: ${(props) => (props.small ? (side_padding / 3) * 2 : side_padding)}rem;
-  transform: translateY(-50%);
+export const IconWrapperV2 = styled.div<{ position: "left" | "right" }>`
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+`;
+
+const SearchIcon = styled(SearchSm)<{ disabled?: boolean }>`
+  color: ${(props) =>
+    props.theme.input.icons[
+      props.disabled ? "searchInactive" : "searchActive"
+    ]};
 `;
