@@ -36,7 +36,7 @@ export function FileInput({
 
   return (
     <Wrapper {...(props as any)}>
-      <Text noMargin>
+      <Text>
         {(fileNames.length === 0 && children) || fileNames.join(", ")}
       </Text>
       <SelectFileButton onClick={() => inputRef?.current?.click()}>

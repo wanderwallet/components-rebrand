@@ -11,11 +11,11 @@ export type ArconnectTheme = DefaultTheme;
 export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   displayTheme: "light",
   theme: "171, 154, 255",
-  primaryText: "0, 0, 0",
-  secondaryText: "174, 173, 205",
+  primaryText: "#121212",
+  secondaryText: "#666",
   cardBorder: "235, 235, 241",
   background: "255, 255, 255",
-  cardBackground: "255, 255, 255",
+  cardBackground: "#FFF",
   // New styles:
   backgroundv2: "#FFFFFF",
   primary: "#7866D3",
@@ -70,11 +70,11 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
 export const ARCONNECT_DARK_THEME: ArconnectTheme = {
   displayTheme: "dark",
   theme: "171, 154, 255",
-  primaryText: "255, 255, 255",
-  secondaryText: "174, 173, 205",
+  primaryText: "#EEE",
+  secondaryText: "#AAA",
   cardBorder: "44, 44, 47",
   background: "0, 0, 0",
-  cardBackground: "22, 22, 22",
+  cardBackground: "#121212",
   // New styles:
   backgroundv2: "#191919",
   primary: "#8E7BEA",

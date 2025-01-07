@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => (props.smallPadding ? ".5rem .65rem" : "1rem 1.25rem")};
+  padding: 24px;
+  border-radius: 8px;
   border: 1px solid rgb(${(props) => props.theme.cardBorder});
-  border-radius: 18px;
-  background-color: rgb(${(props) => props.theme.cardBackground});
+  background-color: ${(props) => props.theme.cardBackground};
 `;
 
 export interface CardProps {

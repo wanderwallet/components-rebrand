@@ -10,8 +10,10 @@ export default {
 
 export const Normal: ComponentStory<typeof Card> = (args) => (
   <Card {...args}>
-    <Text heading>Card title</Text>
-    <Text style={{ margin: 0 }}>
+    <Text size="lg" weight="medium" variant={"primary"}>
+      Card title
+    </Text>
+    <Text style={{ margin: 0 }} variant={"secondary"}>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur,
       alias sequi ab natus porro, nisi iste perferendis hic molestiae eligendi
       at deleniti quis quidem saepe odio deserunt dolorum architecto velit?
@@ -19,6 +21,4 @@ export const Normal: ComponentStory<typeof Card> = (args) => (
   </Card>
 );
 
-Normal.args = {
-  smallPadding: false
-};
+Normal.args = {};

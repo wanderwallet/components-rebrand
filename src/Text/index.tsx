@@ -1,53 +1,87 @@
-import { HTMLAttributes, useMemo } from "react";
+import { HTMLAttributes } from "react";
 import styled from "styled-components";
 
+const fontWeights = {
+  extraLight: 200,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800
+} as const;
+
 const sizes = {
-  h1: "2rem",
-  h2: "1.65rem",
-  h3: "1.45rem",
-  p: "1rem"
-};
+  // Display text (Hero, Banner)
+  "7xl": "3.5rem", // 56px
+  "6xl": "3rem", // 48px
+  "5xl": "2.75rem", // 44px
+  "4xl": "2.5rem", // 40px
+
+  // Headings
+  "3xl": "2rem", // 32px
+  "2xl": "1.75rem", // 28px
+  xl: "1.5rem", // 24px
+
+  // Body text
+  lg: "1.25rem", // 20px
+  base: "1.125rem", // 18px
+  md: "1rem", // 16px
+  sm: "0.875rem", // 14px
+  xs: "0.75rem", // 12px
+
+  // Micro text (Labels, badges, tags)
+  "2xs": "0.625rem", // 10px
+  "3xs": "0.5rem", // 8px
+  "4xs": "0.375rem", // 6px
+  "5xs": "0.25rem", // 4px
+  "6xs": "0.125rem", // 2px
+  "7xs": "0.0625rem" // 1px
+} as const;
 
 export function Text({
   children,
-  title,
-  subtitle,
-  heading,
-  noMargin = false,
+  lineHeight,
+  as = "p",
+  size = "md",
+  weight = "regular",
+  variant = "primary",
   ...props
-}: TextProps & Omit<HTMLAttributes<any>, keyof TextProps>) {
-  const tag = useMemo(() => {
-    if (title) return "h1";
-    else if (subtitle) return "h2";
-    else if (heading) return "h3";
-    else return "p";
-  }, [title, subtitle, heading]);
-
+}: TextProps & Omit<HTMLAttributes<HTMLElement>, keyof TextProps>) {
   return (
-    <TextElement as={tag} size={tag} noMargin={noMargin} {...props}>
+    <TextElement
+      as={as}
+      $size={size}
+      $weight={weight}
+      $variant={variant}
+      $lineHeight={lineHeight}
+      {...props}
+    >
       {children}
     </TextElement>
   );
 }
 
 const TextElement = styled.p<{
-  size: "h1" | "h2" | "h3" | "p";
-  noMargin: boolean;
+  $size: keyof typeof sizes;
+  $weight: keyof typeof fontWeights;
+  $variant: "primary" | "secondary";
+  $lineHeight?: number;
 }>`
-  font-size: ${(props) => sizes[props.size]};
-  color: rgb(
-    ${(props) =>
-      props.size === "p" ? props.theme.secondaryText : props.theme.primaryText}
-  );
-  font-weight: ${(props) =>
-    props.size === "p" ? "500" : props.size === "h1" ? "700" : "600"};
-  margin-top: 0;
-  margin-bottom: ${(props) => (props.noMargin ? "0" : "1em")};
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: ${(props) => sizes[props.$size]};
+  font-weight: ${(props) => fontWeights[props.$weight]};
+  ${(props) => props.$lineHeight && `line-height: ${props.$lineHeight};`}
+  color: ${(props) =>
+    props.$variant === "primary"
+      ? props.theme.primaryText
+      : props.theme.secondaryText};
 `;
 
 export interface TextProps {
-  title?: boolean;
-  subtitle?: boolean;
-  heading?: boolean;
-  noMargin?: boolean;
+  as?: "p" | "span" | "div";
+  size?: keyof typeof sizes;
+  weight?: keyof typeof fontWeights;
+  variant?: "primary" | "secondary";
+  lineHeight?: number;
 }
