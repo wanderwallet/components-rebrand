@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Input } from "./index";
 import { ComponentProps } from "react";
+import { useInput } from "../hooks";
 
 export default {
   title: "Input",
@@ -8,7 +9,8 @@ export default {
 } as ComponentMeta<typeof Input>;
 
 const Template: ComponentStory<typeof Input> = (args) => {
-  return <Input type="text" {...args} />;
+  const textInput = useInput("");
+  return <Input type="text" {...args} {...textInput.bindings} />;
 };
 
 const defaultArgs: ComponentProps<typeof Input> = {

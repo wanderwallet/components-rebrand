@@ -4,7 +4,7 @@ import {
   SearchSm,
   XCircle
 } from "@untitled-ui/icons-react";
-import { HTMLProps, ReactNode, useMemo } from "react";
+import { HTMLProps, ReactNode, useMemo, useState } from "react";
 import styled from "styled-components";
 import { InputStatus } from "../hooks";
 
@@ -28,6 +28,8 @@ export function Input({
 }: Omit<SharedPropsV2, "hasLeftIcon"> &
   InputV2Props &
   HTMLProps<HTMLInputElement>) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [blurTimeout, setBlurTimeout] = useState<NodeJS.Timeout | null>(null);
   const inputV2Props = useMemo<any>(
     () => ({
       fullWidth,
@@ -53,10 +55,27 @@ export function Input({
     ]
   );
 
+  const handleBlur = () => {
+    const timeout = setTimeout(() => {
+      setIsFocused(false);
+    }, 200);
+    setBlurTimeout(timeout);
+  };
+
+  const clearInput = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (blurTimeout) clearTimeout(blurTimeout);
+    setIsFocused(true);
+    props?.onChange?.({
+      target: { value: "" }
+    } as React.ChangeEvent<HTMLInputElement>);
+  };
+
   const rightInputIcon = () => {
     if (iconRight) return iconRight;
     if (variant === "dropdown") return <ChevronDown height={20} width={20} />;
-    if (props.value) return <XCircle height={20} width={20} />;
+    if (props.value && (isFocused || blurTimeout))
+      return <XCircle onClick={clearInput} height={20} width={20} />;
     if (status === "error") {
       return <AlertCircle height={20} width={20} color={"#D22B1F"} />;
     }
@@ -88,7 +107,12 @@ export function Input({
           {LeftIconComponent && (
             <IconWrapperV2 position="left">{LeftIconComponent}</IconWrapperV2>
           )}
-          <InputV2Element {...inputV2Props} disabled={disabled} />
+          <InputV2Element
+            {...inputV2Props}
+            disabled={disabled}
+            onFocus={() => setIsFocused(true)}
+            onBlur={handleBlur}
+          />
           {RightIconComponent && (
             <IconWrapperV2 position="right">{RightIconComponent}</IconWrapperV2>
           )}
@@ -121,7 +145,8 @@ export interface InputV2Props {
 
 export const InputContainer = styled.div<SharedPropsV2>`
   height: ${(props) => heights[props.size ?? "normal"]};
-  width: ${(props) => (props.fullWidth ? "calc(100% - 2px)" : "345px")};
+  width: ${(props) => (props.fullWidth ? "100%" : "345px")};
+  box-sizing: border-box;
 `;
 
 export const InputV2Wrapper = styled.div<SharedPropsV2>`
@@ -133,10 +158,12 @@ export const InputV2Wrapper = styled.div<SharedPropsV2>`
   background: ${(props) =>
     props.theme.input.background[props.variant ?? "default"].default};
   border-radius: 10px;
+  box-sizing: border-box;
+  border: 1.5px solid transparent;
 
   overflow: hidden;
   color: rgb(${(props) => props.theme.cardBorder});
-  transition: all 0.13s ease-in-out;
+  transition: border-color 0.13s ease-in-out, background 0.13s ease-in-out;
 
   ${(props) =>
     props.variant === "dropdown"
@@ -207,6 +234,8 @@ export const ErrorMsg = styled.p`
 `;
 
 export const InputV2Element = styled.input<SharedPropsV2>`
+  height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex: 1;
   outline: none;
