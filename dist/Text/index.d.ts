@@ -28,12 +28,13 @@ declare const sizes: {
     readonly "6xs": "0.125rem";
     readonly "7xs": "0.0625rem";
 };
-export declare function Text({ children, lineHeight, as, size, weight, variant, ...props }: TextProps & Omit<HTMLAttributes<HTMLElement>, keyof TextProps>): JSX.Element;
+export declare function Text({ children, lineHeight, noMargin, as, size, weight, variant, ...props }: TextProps & Omit<HTMLAttributes<HTMLElement>, keyof TextProps>): JSX.Element;
 export interface TextProps {
     as?: "p" | "span" | "div";
     size?: keyof typeof sizes;
     weight?: keyof typeof fontWeights;
     variant?: "primary" | "secondary";
     lineHeight?: number;
+    noMargin?: boolean;
 }
 export {};

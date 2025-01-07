@@ -283,12 +283,13 @@ Check the top-level render call using <`+C+">.")}return b}}function Oa(d,b){{if(
   left: 0;
   width: 100%;
   height: 100%;
-`,Hh={extraLight:200,light:300,regular:400,medium:500,semibold:600,bold:700,extrabold:800},qh={"7xl":"3.5rem","6xl":"3rem","5xl":"2.75rem","4xl":"2.5rem","3xl":"2rem","2xl":"1.75rem",xl:"1.5rem",lg:"1.25rem",base:"1.125rem",md:"1rem",sm:"0.875rem",xs:"0.75rem","2xs":"0.625rem","3xs":"0.5rem","4xs":"0.375rem","5xs":"0.25rem","6xs":"0.125rem","7xs":"0.0625rem"};function ln({children:e,lineHeight:t,as:n="p",size:r="md",weight:o="regular",variant:s="primary",...i}){return P(Gh,{as:n,$size:r,$weight:o,$variant:s,$lineHeight:t,...i,children:e})}const Gh=A.p`
+`,Hh={extraLight:200,light:300,regular:400,medium:500,semibold:600,bold:700,extrabold:800},qh={"7xl":"3.5rem","6xl":"3rem","5xl":"2.75rem","4xl":"2.5rem","3xl":"2rem","2xl":"1.75rem",xl:"1.5rem",lg:"1.25rem",base:"1.125rem",md:"1rem",sm:"0.875rem",xs:"0.75rem","2xs":"0.625rem","3xs":"0.5rem","4xs":"0.375rem","5xs":"0.25rem","6xs":"0.125rem","7xs":"0.0625rem"};function ln({children:e,lineHeight:t,noMargin:n=!1,as:r="p",size:o="md",weight:s="regular",variant:i="primary",...a}){return P(Gh,{as:r,$size:o,$weight:s,$variant:i,$lineHeight:t,$noMargin:n,...a,children:e})}const Gh=A.p`
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: ${e=>qh[e.$size]};
   font-weight: ${e=>Hh[e.$weight]};
   ${e=>e.$lineHeight&&`line-height: ${e.$lineHeight};`}
   color: ${e=>e.$variant==="primary"?e.theme.primaryText:e.theme.secondaryText};
+  ${e=>e.$noMargin&&"margin: 0;"}
 `;function Yh({children:e,small:t=!1,active:n,title:r,description:o,img:s,dragControls:i,...a}){return $(Kh,{small:t,active:n,...a,children:[$(Xh,{small:t,children:[P(Jh,{small:t,img:s,children:e}),$("div",{children:[P(Zh,{small:t,children:r}),P(Qh,{small:t,children:o})]})]}),i&&P(Cd,{dragControls:i})]})}const Kh=A.div`
   display: flex;
   align-items: center;

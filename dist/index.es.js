@@ -7022,21 +7022,23 @@ const Lp = P.div`
 function to({
   children: t,
   lineHeight: e,
-  as: n = "p",
-  size: r = "md",
-  weight: o = "regular",
-  variant: s = "primary",
-  ...i
+  noMargin: n = !1,
+  as: r = "p",
+  size: o = "md",
+  weight: s = "regular",
+  variant: i = "primary",
+  ...a
 }) {
   return /* @__PURE__ */ S(
     Bp,
     {
-      as: n,
-      $size: r,
-      $weight: o,
-      $variant: s,
+      as: r,
+      $size: o,
+      $weight: s,
+      $variant: i,
       $lineHeight: e,
-      ...i,
+      $noMargin: n,
+      ...a,
       children: t
     }
   );
@@ -7047,6 +7049,7 @@ const Bp = P.p`
   font-weight: ${(t) => Mp[t.$weight]};
   ${(t) => t.$lineHeight && `line-height: ${t.$lineHeight};`}
   color: ${(t) => t.$variant === "primary" ? t.theme.primaryText : t.theme.secondaryText};
+  ${(t) => t.$noMargin && "margin: 0;"}
 `;
 function Fm({
   children: t,
