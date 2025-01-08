@@ -25,8 +25,8 @@ const sizes = {
 
   // Body text
   lg: "1.25rem", // 20px
-  base: "1.125rem", // 18px
-  md: "1rem", // 16px
+  md: "1.125rem", // 18px
+  base: "1rem", // 16px
   sm: "0.875rem", // 14px
   xs: "0.75rem", // 12px
 
@@ -44,7 +44,7 @@ export function Text({
   lineHeight,
   noMargin = false,
   as = "p",
-  size = "md",
+  size = "base",
   weight = "regular",
   variant = "primary",
   ...props
