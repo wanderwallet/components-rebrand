@@ -59,8 +59,8 @@ const Wrapper = styled.div<{ active: boolean; small: boolean }>`
   height: ${(props) => (props.small ? "36px" : "48px")};
   transition: all 0.23s ease-in-out;
 
-  ${(props) =>
-    props.active && `background-color: ${props.theme.listItem.active}`}
+  background-color: ${(props) =>
+    props.active ? props.theme.listItem.active : "none"};
 
   &:hover {
     background-color: ${(props) => props.theme.listItem.hover};

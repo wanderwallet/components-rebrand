@@ -7105,7 +7105,7 @@ const Ip = A.div`
   height: ${(t) => t.small ? "36px" : "48px"};
   transition: all 0.23s ease-in-out;
 
-  ${(t) => t.active && `background-color: ${t.theme.listItem.active}`}
+  background-color: ${(t) => t.active ? t.theme.listItem.active : "none"};
 
   &:hover {
     background-color: ${(t) => t.theme.listItem.hover};
