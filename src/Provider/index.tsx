@@ -85,6 +85,11 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
       searchActive: "#6B57F9",
       searchInactive: "#838383"
     }
+  },
+  listItem: {
+    hover: "#F2F2F7",
+    active: "#EBEBF0",
+    icon: "#838383"
   }
 };
 
@@ -165,6 +170,11 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
       searchActive: "#9787FF",
       searchInactive: "#838383"
     }
+  },
+  listItem: {
+    hover: "#242426",
+    active: "#2C2C2E",
+    icon: "#838383"
   }
 };
 

@@ -26,7 +26,7 @@ export default function Squircle({
       try {
         const response = await axios.get(img, { responseType: "blob" });
         const blob = response.data;
-  
+
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64data = reader.result;
@@ -49,39 +49,41 @@ export default function Squircle({
 
   return (
     <Wrapper {...(props as any)}>
-      <SquircleSvg
-        width="60"
-        height="60"
-        viewBox="0 0 60 60"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {imageData && (
-          <defs>
-            <pattern
-              id={svgPathId}
-              patternUnits="userSpaceOnUse"
-              width="60"
-              height="60"
-            >
-              <image
-                xlinkHref={imageData}
-                x="0"
-                y="0"
+      {img && (
+        <SquircleSvg
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {imageData && (
+            <defs>
+              <pattern
+                id={svgPathId}
+                patternUnits="userSpaceOnUse"
                 width="60"
                 height="60"
-                preserveAspectRatio="xMidYMid slice"
-              />
-            </pattern>
-          </defs>
-        )}
-        <path
-          d={outline ? outlinePath : originalPath}
-          fill={imageData ? `url(#${svgPathId})` : "currentColor"}
-          strokeWidth={outline ? 2 : undefined}
-          stroke={outline}
-        />
-      </SquircleSvg>
+              >
+                <image
+                  xlinkHref={imageData}
+                  x="0"
+                  y="0"
+                  width="60"
+                  height="60"
+                  preserveAspectRatio="xMidYMid slice"
+                />
+              </pattern>
+            </defs>
+          )}
+          <path
+            d={outline ? outlinePath : originalPath}
+            fill={imageData ? `url(#${svgPathId})` : "currentColor"}
+            strokeWidth={outline ? 2 : undefined}
+            stroke={outline}
+          />
+        </SquircleSvg>
+      )}
       {children}
     </Wrapper>
   );

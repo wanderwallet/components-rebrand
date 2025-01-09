@@ -10,21 +10,23 @@ export default {
 
 const Template: ComponentStory<typeof ListItem> = (args) => (
   <ListItem {...args}>
-    {!args.img && <ListItemIcon />}
+    {!args.img && !args.children && <ListItemIcon />}
+    {args.children}
   </ListItem>
 );
 const defaultArgs: ComponentProps<typeof ListItem> = {
   small: false,
   active: false,
+  showArrow: false,
   title: "Contacts",
-  description: "Add/edit contacts",
+  description: "Add/edit contacts"
 };
 
 const TemplateDraggable: ComponentStory<typeof ListItem> = (args) => {
   const dragControls = useDragControls();
-  const [tokens, setTokens] = useState(["Component 1", "Component 2"])
+  const [tokens, setTokens] = useState(["Component 1", "Component 2"]);
 
-  return(
+  return (
     <Reorder.Group
       as="div"
       axis="y"
@@ -47,8 +49,8 @@ const TemplateDraggable: ComponentStory<typeof ListItem> = (args) => {
       ))}
     </Reorder.Group>
   );
-}
- 
+};
+
 export const Basic = Template.bind({});
 Basic.args = defaultArgs;
 
@@ -57,6 +59,7 @@ Small.args = {
   ...defaultArgs,
   small: true,
   active: false,
+  showArrow: false,
   title: "USD",
   description: "United States Dollar"
 };
@@ -65,4 +68,19 @@ export const Draggable = TemplateDraggable.bind({});
 Draggable.args = {
   title: "Tokens",
   description: "x1aoxArDf02xbgrua20492bdfg4",
-}
+  showArrow: false
+};
+
+export const Children = Template.bind({});
+Children.args = {
+  ...defaultArgs,
+  children: (
+    <img
+      style={{ borderRadius: 12 }}
+      src="https://picsum.photos/200/300"
+      height={50}
+      width={50}
+      alt="Alternate"
+    />
+  )
+};

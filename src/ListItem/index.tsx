@@ -1,87 +1,106 @@
 import type { DragControls } from "framer-motion";
 import { UsersPlusIcon } from "@iconicicons/react";
-import { HTMLProps, ReactNode } from "react";
+import { CSSProperties, HTMLProps, ReactNode } from "react";
 import ReorderIcon from "../ReorderIcon";
 import styled from "styled-components";
 import Squircle from "../Squircle";
 import { Text } from "../Text";
+import { ChevronRight } from "@untitled-ui/icons-react";
 
 export function ListItem({
-  children, 
+  children,
   small = false,
   active,
   title,
+  titleStyle,
   description,
+  descriptionStyle,
   img,
   dragControls,
+  showArrow = false,
+  squircleSize = small ? 32 : 48,
   ...props
 }: Props & HTMLProps<HTMLDivElement>) {
   return (
     <Wrapper small={small} active={active} {...(props as any)}>
-      <ContentWrapper small={small}>
-        <IconWrapper small={small} img={img}>
+      <ContentWrapper>
+        <IconWrapper small={small} img={img} squircleSize={squircleSize}>
           {children}
         </IconWrapper>
         <div>
-          <ItemName small={small}>{title}</ItemName>
-          <ItemDescription small={small}>{description}</ItemDescription>
+          <ItemName small={small} style={titleStyle}>
+            {title}
+          </ItemName>
+          <ItemDescription small={small} style={descriptionStyle}>
+            {description}
+          </ItemDescription>
         </div>
       </ContentWrapper>
+      {!dragControls && showArrow && <ArrowIcon />}
       {dragControls && <ReorderIcon dragControls={dragControls} />}
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div<{ active: boolean, small: boolean }>`
+const Wrapper = styled.div<{ active: boolean; small: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: ${(props) => props.small ? "10px" : "20px"};
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  padding: ${(props) => props.small ? "10px" : "15px"};
-  height: ${(props) => props.small ? "36px" : "48px"};
-  background-color: ${(props) => props.active ? props.theme.secondaryBtnHover : "transparent"};
+  padding: 8px;
+  height: ${(props) => (props.small ? "36px" : "48px")};
   transition: all 0.23s ease-in-out;
 
+  ${(props) =>
+    props.active && `background-color: ${props.theme.listItem.active}`}
+
   &:hover {
-    background-color: ${(props) => !props.active ? props.theme.secondaryItemHover : "none"};
-  };
+    background-color: ${(props) => props.theme.listItem.hover};
+  }
 `;
 
-const ContentWrapper = styled.div<{ small: boolean }>`
+const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: ${(props) => props.small ? "12px" : "17px"};
+  gap: 12px;
 `;
 
-const IconWrapper = styled(Squircle)<{ small: boolean }>`
+const IconWrapper = styled(Squircle)<{
+  small: boolean;
+  squircleSize: number;
+}>`
   position: relative;
   flex-shrink: 0;
-  width: ${(props) => props.small ? "32px" : "48px"};
-  height: ${(props) => props.small ? "32px" : "48px"};
-  color: rgb(${(props) => props.theme.theme});
+  width: ${(props) => props.squircleSize}px;
+  height: ${(props) => props.squircleSize}px;
+  color: ${(props) => props.theme.theme};
 `;
 
 const ItemName = styled(Text).attrs({
   noMargin: true,
-  heading: false
+  weight: "semibold"
 })<{ small: boolean }>`
-  font-weight: 500;
-  font-size: ${(props) => props.small ? "16px" : "20px"};
+  font-size: ${(props) => (props.small ? "16px" : "18px")};
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 250px;
-  color: ${(props) => props.theme.primaryTextv2};
 `;
 
 const ItemDescription = styled(Text).attrs({
   noMargin: true,
-  heading: false
+  variant: "secondary",
+  weight: "medium"
 })<{ small: boolean }>`
-  font-size: ${(props) => props.small ? "10px" : "14px"};
-  font-weight: 500;
+  font-size: ${(props) => (props.small ? "12px" : "14px")};
+`;
+
+const ArrowIcon = styled(ChevronRight)`
+  color: ${(props) => props.theme.listItem.icon};
+  width: 24px;
+  height: 24px;
 `;
 
 export const ListItemIcon = styled(UsersPlusIcon)`
@@ -111,7 +130,11 @@ interface Props {
   small?: boolean;
   active?: boolean;
   title: string | ReactNode;
+  titleStyle?: CSSProperties;
   description: string | ReactNode;
+  descriptionStyle?: CSSProperties;
   img?: string;
   dragControls?: DragControls;
-};
+  showArrow?: boolean;
+  squircleSize?: number;
+}

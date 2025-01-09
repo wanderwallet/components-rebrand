@@ -81,5 +81,10 @@ declare module "styled-components" {
         searchInactive: string;
       };
     };
+    listItem: {
+      hover: string;
+      active: string;
+      icon: string;
+    };
   }
 }

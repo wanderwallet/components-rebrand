@@ -17,8 +17,8 @@ declare const sizes: {
     readonly "2xl": "1.75rem";
     readonly xl: "1.5rem";
     readonly lg: "1.25rem";
-    readonly base: "1.125rem";
-    readonly md: "1rem";
+    readonly md: "1.125rem";
+    readonly base: "1rem";
     readonly sm: "0.875rem";
     readonly xs: "0.75rem";
     readonly "2xs": "0.625rem";
