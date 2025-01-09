@@ -74,9 +74,10 @@ Draggable.args = {
 export const Children = Template.bind({});
 Children.args = {
   ...defaultArgs,
+  hideSquircle: true,
   children: (
     <img
-      style={{ borderRadius: 12 }}
+      style={{ borderRadius: 12, position: "absolute", top: 0, left: 0 }}
       src="https://picsum.photos/200/300"
       height={50}
       width={50}

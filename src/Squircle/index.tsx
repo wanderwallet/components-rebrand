@@ -7,6 +7,7 @@ export default function Squircle({
   children,
   img,
   outline,
+  hideSquircle = false,
   ...props
 }: HTMLProps<HTMLDivElement> & Props) {
   const [imageData, setImageData] = useState<string>();
@@ -19,7 +20,7 @@ export default function Squircle({
   // weird for a second
   useEffect(() => {
     (async () => {
-      if (!img) {
+      if (!img || hideSquircle) {
         return setImageData(img);
       }
 
@@ -49,7 +50,7 @@ export default function Squircle({
 
   return (
     <Wrapper {...(props as any)}>
-      {img && (
+      {!hideSquircle && (
         <SquircleSvg
           width="60"
           height="60"
@@ -92,6 +93,7 @@ export default function Squircle({
 interface Props {
   img?: string;
   outline?: string;
+  hideSquircle?: boolean;
 }
 
 const Wrapper = styled.div`

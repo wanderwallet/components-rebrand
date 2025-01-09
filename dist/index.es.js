@@ -6902,25 +6902,26 @@ function Dp({
   children: t,
   img: e,
   outline: n,
-  ...r
+  hideSquircle: r = !1,
+  ...o
 }) {
-  const [o, s] = Z(), i = Pt(() => hh(), [e]);
+  const [s, i] = Z(), a = Pt(() => hh(), [e]);
   return Y(() => {
     (async () => {
-      if (!e)
-        return s(e);
+      if (!e || r)
+        return i(e);
       try {
-        const c = (await Op.get(e, { responseType: "blob" })).data, d = new FileReader();
-        d.onloadend = () => {
-          const h = d.result;
-          typeof h == "string" && s(h);
-        }, d.readAsDataURL(c);
-      } catch (u) {
-        console.error("Error loading image:", u), s(void 0);
+        const d = (await Op.get(e, { responseType: "blob" })).data, h = new FileReader();
+        h.onloadend = () => {
+          const p = h.result;
+          typeof p == "string" && i(p);
+        }, h.readAsDataURL(d);
+      } catch (c) {
+        console.error("Error loading image:", c), i(void 0);
       }
     })();
-  }, [e]), /* @__PURE__ */ $(Fp, { ...r, children: [
-    e && /* @__PURE__ */ $(
+  }, [e]), /* @__PURE__ */ $(Fp, { ...o, children: [
+    !r && /* @__PURE__ */ $(
       Lp,
       {
         width: "60",
@@ -6929,17 +6930,17 @@ function Dp({
         fill: "none",
         xmlns: "http://www.w3.org/2000/svg",
         children: [
-          o && /* @__PURE__ */ E("defs", { children: /* @__PURE__ */ E(
+          s && /* @__PURE__ */ E("defs", { children: /* @__PURE__ */ E(
             "pattern",
             {
-              id: i,
+              id: a,
               patternUnits: "userSpaceOnUse",
               width: "60",
               height: "60",
               children: /* @__PURE__ */ E(
                 "image",
                 {
-                  xlinkHref: o,
+                  xlinkHref: s,
                   x: "0",
                   y: "0",
                   width: "60",
@@ -6953,7 +6954,7 @@ function Dp({
             "path",
             {
               d: n ? "M1 30C1 23.8466 1.33102 18.97 2.18954 15.107C3.04554 11.2554 4.41259 8.47287 6.44273 6.44273C8.47287 4.41259 11.2554 3.04554 15.107 2.18954C18.97 1.33102 23.8466 1 30 1C36.1534 1 41.03 1.33102 44.893 2.18954C48.7446 3.04554 51.5271 4.41259 53.5573 6.44273C55.5874 8.47287 56.9545 11.2554 57.8105 15.107C58.669 18.97 59 23.8466 59 30C59 36.1534 58.669 41.03 57.8105 44.893C56.9545 48.7446 55.5874 51.5271 53.5573 53.5573C51.5271 55.5874 48.7446 56.9545 44.893 57.8105C41.03 58.669 36.1534 59 30 59C23.8466 59 18.97 58.669 15.107 57.8105C11.2554 56.9545 8.47287 55.5874 6.44273 53.5573C4.41259 51.5271 3.04554 48.7446 2.18954 44.893C1.33102 41.03 1 36.1534 1 30Z" : "M0 30C0 5.295 5.295 0 30 0C54.705 0 60 5.295 60 30C60 54.705 54.705 60 30 60C5.295 60 0 54.705 0 30Z",
-              fill: o ? `url(#${i})` : "currentColor",
+              fill: s ? `url(#${a})` : "currentColor",
               strokeWidth: n ? 2 : void 0,
               stroke: n
             }
@@ -7069,11 +7070,21 @@ function Dm({
   dragControls: l,
   showArrow: u = !1,
   squircleSize: c = e ? 32 : 48,
-  ...d
+  hideSquircle: d = !1,
+  ...h
 }) {
-  return /* @__PURE__ */ $(Ip, { small: e, active: n, ...d, children: [
+  return /* @__PURE__ */ $(Ip, { small: e, active: n, ...h, children: [
     /* @__PURE__ */ $(jp, { children: [
-      /* @__PURE__ */ E($p, { small: e, img: a, squircleSize: c, children: t }),
+      /* @__PURE__ */ E(
+        $p,
+        {
+          small: e,
+          img: a,
+          squircleSize: c,
+          hideSquircle: d,
+          children: t
+        }
+      ),
       /* @__PURE__ */ $("div", { children: [
         /* @__PURE__ */ E(Np, { small: e, style: o, children: r }),
         /* @__PURE__ */ E(Up, { small: e, style: i, children: s })

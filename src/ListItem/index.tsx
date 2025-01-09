@@ -19,12 +19,18 @@ export function ListItem({
   dragControls,
   showArrow = false,
   squircleSize = small ? 32 : 48,
+  hideSquircle = false,
   ...props
 }: Props & HTMLProps<HTMLDivElement>) {
   return (
     <Wrapper small={small} active={active} {...(props as any)}>
       <ContentWrapper>
-        <IconWrapper small={small} img={img} squircleSize={squircleSize}>
+        <IconWrapper
+          small={small}
+          img={img}
+          squircleSize={squircleSize}
+          hideSquircle={hideSquircle}
+        >
           {children}
         </IconWrapper>
         <div>
@@ -137,4 +143,5 @@ interface Props {
   dragControls?: DragControls;
   showArrow?: boolean;
   squircleSize?: number;
+  hideSquircle?: boolean;
 }
