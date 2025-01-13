@@ -1,97 +1,127 @@
-import { HTMLProps, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { Text, type TextProps } from "../Text";
+import { useCallback, type HTMLAttributes, type HTMLProps } from "react";
 import styled from "styled-components";
 
-export function Checkbox({
-  children,
-  checked = false,
+export const Checkbox = ({
+  checked,
   onChange,
-  ...props
-}: CheckboxProps & Omit<HTMLProps<HTMLDivElement>, "onChange">) {
-  const [state, setState] = useState(checked);
-  const checkedPath = "M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75";
-
-  useEffect(() => setState(checked), [checked]);
-
-  async function toggle() {
-    let newVal = state;
-
-    setState((val) => {
-      newVal = !val;
-      return newVal;
-    });
-
+  size = 24,
+  label,
+  labelProps
+}: CheckboxProps & Omit<HTMLProps<HTMLDivElement>, "onChange">) => {
+  const toggle = useCallback(() => {
     if (onChange) {
-      await onChange(newVal);
+      onChange(!checked);
     }
-  }
+  }, [onChange, checked]);
 
   return (
-    <CheckboxWithLabel {...(props as any)} onClick={toggle}>
+    <CheckboxContainer size={size} onClick={toggle}>
       <CheckboxWrapper>
-        <IconWrapper state={state}>
-          <motion.svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <motion.path
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ d: checkedPath }}
-              animate={{ d: state ? checkedPath : "" }}
-              transition={{
-                ease: "easeInOut",
-                duration: .15
-              }}
-            />
-          </motion.svg>
-        </IconWrapper>
+        <CheckboxInput
+          checked={checked}
+          aria-checked={checked}
+          role="checkbox"
+        />
+        <Label size={size} />
       </CheckboxWrapper>
-      {children && <Label>{children}</Label>}
-    </CheckboxWithLabel>
+      {label && (
+        // @ts-ignore
+        <CheckboxLabel {...labelProps} size={size}>
+          {label}
+        </CheckboxLabel>
+      )}
+    </CheckboxContainer>
   );
-}
+};
 
 interface CheckboxProps {
   checked?: boolean;
-  onChange?: (checked: boolean) => any;
+  onChange?: (checked: boolean) => void;
+  id?: string;
+  size?: number;
+  label?: string;
+  labelProps?: TextProps & Omit<HTMLAttributes<HTMLElement>, keyof TextProps>;
 }
 
-const CheckboxWithLabel = styled.div`
+const CheckboxContainer = styled.div<{ size?: number }>`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.8rem;
+  gap: ${(props) => Math.max(8, props.size ? props.size * 0.4 : 8)}px;
+  margin-left: 0.12rem;
   cursor: pointer;
 `;
 
-const Label = styled.p`
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgb(${(props) => props.theme.secondaryText});
-  margin: 0;
-`;
-
-const CheckboxWrapper = styled.div`
+const CheckboxWrapper = styled.div<{ size?: number }>`
   position: relative;
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 100%;
-  overflow: hidden;
-  flex-shrink: 0;
-  background-color: rgba(${props => props.theme.theme}, .15);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 `;
 
-const IconWrapper = styled(motion.div)<{ state: boolean; }>`
-  position: absolute;
-  display: flex;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgb(${props => props.theme.theme});
-  transition: color .17s ease;
+const CheckboxInput = styled.input.attrs({ type: "checkbox" })`
+  visibility: hidden;
 
-  svg {
-    font-size: 1rem;
-    width: 1.1rem;
-    height: 1.1rem;
+  &:checked + label {
+    background-color: ${(props) => props.theme.theme};
+    border-color: ${(props) => props.theme.theme};
+  }
+
+  &:checked + label:after {
+    opacity: 1;
+  }
+
+  &:focus + label {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.theme}33;
   }
 `;
+
+const Label = styled.label<{ size: number }>`
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 2.25px solid ${(props) => props.theme.theme};
+  border-radius: 50%;
+  cursor: pointer;
+  height: ${(props) => props.size}px;
+  width: ${(props) => props.size}px;
+  position: absolute;
+  margin: auto;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: ${(props) => props.theme.theme};
+    background-color: ${(props) => props.theme.theme}11;
+  }
+
+  &:after {
+    border: 2.25px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: ${(props) => props.size / 4}px;
+    left: ${(props) => props.size / 8}px;
+    opacity: 0;
+    position: absolute;
+    top: ${(props) => props.size / 6}px;
+    transform: rotate(-45deg);
+    width: ${(props) => props.size / 2}px;
+    transition: opacity 0.2s ease;
+  }
+`;
+
+const CheckboxLabel = styled(Text).attrs({
+  weight: "medium",
+  noMargin: true
+})<{ size?: number }>`
+  font-size: ${(props) => Math.max(14, props.size ? props.size * 0.6 : 14)}px;
+  display: flex;
+  align-items: center;
+  height: ${(props) => Math.max(props.size || 24, 24)}px;
+`;
+
+export default Checkbox;

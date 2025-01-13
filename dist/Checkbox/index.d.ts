@@ -1,7 +1,12 @@
-import { HTMLProps } from "react";
-export declare function Checkbox({ children, checked, onChange, ...props }: CheckboxProps & Omit<HTMLProps<HTMLDivElement>, "onChange">): JSX.Element;
+import { type TextProps } from "../Text";
+import { type HTMLAttributes, type HTMLProps } from "react";
+export declare const Checkbox: ({ checked, onChange, size, label, labelProps }: CheckboxProps & Omit<HTMLProps<HTMLDivElement>, "onChange">) => JSX.Element;
 interface CheckboxProps {
     checked?: boolean;
-    onChange?: (checked: boolean) => any;
+    onChange?: (checked: boolean) => void;
+    id?: string;
+    size?: number;
+    label?: string;
+    labelProps?: TextProps & Omit<HTMLAttributes<HTMLElement>, keyof TextProps>;
 }
-export {};
+export default Checkbox;
