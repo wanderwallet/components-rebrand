@@ -60,6 +60,7 @@ declare module "styled-components" {
         secondaryAlt: string;
       };
     };
+    surfaceSecondary: string;
     surfaceTertiary: string;
     borderDefault: string;
     input: {
