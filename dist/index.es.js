@@ -7579,10 +7579,10 @@ const nn = ".35rem", Zp = A.div`
   primaryText: "#EEE",
   secondaryText: "#AAA",
   cardBorder: "44, 44, 47",
-  background: "0, 0, 0",
+  background: "18, 18, 18",
   cardBackground: "#121212",
   // New styles:
-  backgroundv2: "#191919",
+  backgroundv2: "#121212",
   primary: "#6B57F9",
   primaryBtnHover: "#6751D0",
   secondaryBtnHover: "#36324D",
