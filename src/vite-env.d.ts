@@ -60,6 +60,7 @@ declare module "styled-components" {
         secondaryAlt: string;
       };
     };
+    surfaceTertiary: string;
     input: {
       background: {
         search: { default: string; disabled: string; special: string };
