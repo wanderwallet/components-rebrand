@@ -61,6 +61,7 @@ declare module "styled-components" {
       };
     };
     surfaceTertiary: string;
+    borderDefault: string;
     input: {
       background: {
         search: { default: string; disabled: string; special: string };

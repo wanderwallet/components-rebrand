@@ -33,6 +33,7 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   delete: "#F58080",
   secondaryDelete: "#F58080",
   surfaceTertiary: "#f2f2f7",
+  borderDefault: "#D6D6DD",
   button: {
     background: {
       primary: {
@@ -119,6 +120,7 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
   delete: "#8C1A1A",
   secondaryDelete: "#C51A1A",
   surfaceTertiary: "#2C2C2E",
+  borderDefault: "#333",
   button: {
     background: {
       primary: {
