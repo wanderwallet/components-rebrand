@@ -7594,7 +7594,7 @@ const nn = ".35rem", Zp = A.div`
   secondaryTextv2: "#A3A3A3",
   buttonDisabledText: "#A9A4C0",
   inputField: "#847F90",
-  success: "#14D110",
+  success: "#56C980",
   fail: "#FF1A1A",
   backgroundSecondary: "#333333",
   delete: "#8C1A1A",
