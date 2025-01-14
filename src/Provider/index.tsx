@@ -18,7 +18,7 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   cardBackground: "#FFF",
   // New styles:
   backgroundv2: "#FFFFFF",
-  primary: "#7866D3",
+  primary: "#6B57F9",
   primaryBtnHover: "#5647A0",
   secondaryBtnHover: "#DDD9F4",
   secondaryItemHover: "#EBE8F8",
@@ -103,7 +103,7 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
   cardBackground: "#121212",
   // New styles:
   backgroundv2: "#191919",
-  primary: "#8E7BEA",
+  primary: "#6B57F9",
   primaryBtnHover: "#6751D0",
   secondaryBtnHover: "#36324D",
   secondaryItemHover: "#2B2838",
