@@ -37,9 +37,11 @@ export function ListItem({
           <ItemName small={small} style={titleStyle}>
             {title}
           </ItemName>
-          <ItemDescription small={small} style={descriptionStyle}>
-            {description}
-          </ItemDescription>
+          {description && (
+            <ItemDescription small={small} style={descriptionStyle}>
+              {description}
+            </ItemDescription>
+          )}
         </div>
       </ContentWrapper>
       {!dragControls && showArrow && <ArrowIcon />}
@@ -137,7 +139,7 @@ interface Props {
   active?: boolean;
   title: string | ReactNode;
   titleStyle?: CSSProperties;
-  description: string | ReactNode;
+  description?: string | ReactNode;
   descriptionStyle?: CSSProperties;
   img?: string;
   dragControls?: DragControls;

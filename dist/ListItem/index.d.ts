@@ -12,7 +12,7 @@ interface Props {
     active?: boolean;
     title: string | ReactNode;
     titleStyle?: CSSProperties;
-    description: string | ReactNode;
+    description?: string | ReactNode;
     descriptionStyle?: CSSProperties;
     img?: string;
     dragControls?: DragControls;

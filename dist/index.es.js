@@ -3002,7 +3002,7 @@ function Dm({
       ),
       /* @__PURE__ */ j("div", { children: [
         /* @__PURE__ */ S(vu, { small: e, style: o, children: r }),
-        /* @__PURE__ */ S(bu, { small: e, style: i, children: s })
+        s && /* @__PURE__ */ S(bu, { small: e, style: i, children: s })
       ] })
     ] }),
     !l && u && /* @__PURE__ */ S(xu, {}),
@@ -7517,6 +7517,7 @@ const nn = ".35rem", Zp = A.div`
   surfaceSecondary: "#F2F2F7",
   surfaceTertiary: "#f2f2f7",
   borderDefault: "#D6D6DD",
+  borderSecondary: "#E4E4EB",
   button: {
     background: {
       primary: {
@@ -7604,6 +7605,7 @@ const nn = ".35rem", Zp = A.div`
   surfaceSecondary: "#242426",
   surfaceTertiary: "#2C2C2E",
   borderDefault: "#333",
+  borderSecondary: "#2C2C2E",
   button: {
     background: {
       primary: {

@@ -36,6 +36,7 @@ export const ARCONNECT_LIGHT_THEME: ArconnectTheme = {
   surfaceSecondary: "#F2F2F7",
   surfaceTertiary: "#f2f2f7",
   borderDefault: "#D6D6DD",
+  borderSecondary: "#E4E4EB",
   button: {
     background: {
       primary: {
@@ -125,6 +126,7 @@ export const ARCONNECT_DARK_THEME: ArconnectTheme = {
   surfaceSecondary: "#242426",
   surfaceTertiary: "#2C2C2E",
   borderDefault: "#333",
+  borderSecondary: "#2C2C2E",
   button: {
     background: {
       primary: {
