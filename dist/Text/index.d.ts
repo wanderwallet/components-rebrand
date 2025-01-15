@@ -33,7 +33,7 @@ export interface TextProps {
     as?: "p" | "span" | "div";
     size?: keyof typeof sizes;
     weight?: keyof typeof fontWeights;
-    variant?: "primary" | "secondary";
+    variant?: "primary" | "secondary" | "tertiary";
     lineHeight?: number;
     noMargin?: boolean;
 }

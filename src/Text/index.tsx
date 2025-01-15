@@ -67,7 +67,7 @@ export function Text({
 const TextElement = styled.p<{
   $size: keyof typeof sizes;
   $weight: keyof typeof fontWeights;
-  $variant: "primary" | "secondary";
+  $variant: "primary" | "secondary" | "tertiary";
   $lineHeight?: number;
   $noMargin?: boolean;
 }>`
@@ -78,7 +78,9 @@ const TextElement = styled.p<{
   color: ${(props) =>
     props.$variant === "primary"
       ? props.theme.primaryText
-      : props.theme.secondaryText};
+      : props.$variant === "secondary"
+      ? props.theme.secondaryText
+      : props.theme.tertiaryText};
   ${(props) => props.$noMargin && "margin: 0;"}
 `;
 
@@ -86,7 +88,7 @@ export interface TextProps {
   as?: "p" | "span" | "div";
   size?: keyof typeof sizes;
   weight?: keyof typeof fontWeights;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "tertiary";
   lineHeight?: number;
   noMargin?: boolean;
 }

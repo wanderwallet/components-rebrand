@@ -846,7 +846,7 @@ const vl = A.p`
   font-size: ${(t) => yl[t.$size]};
   font-weight: ${(t) => gl[t.$weight]};
   ${(t) => t.$lineHeight && `line-height: ${t.$lineHeight};`}
-  color: ${(t) => t.$variant === "primary" ? t.theme.primaryText : t.theme.secondaryText};
+  color: ${(t) => t.$variant === "primary" ? t.theme.primaryText : t.$variant === "secondary" ? t.theme.secondaryText : t.theme.tertiaryText};
   ${(t) => t.$noMargin && "margin: 0;"}
 `, Vm = ({
   checked: t,
@@ -7494,6 +7494,7 @@ const nn = ".35rem", Zp = A.div`
   theme: "#6B57F9",
   primaryText: "#121212",
   secondaryText: "#666",
+  tertiaryText: "#838383",
   cardBorder: "235, 235, 241",
   background: "255, 255, 255",
   cardBackground: "#FFF",
@@ -7580,6 +7581,7 @@ const nn = ".35rem", Zp = A.div`
   theme: "#6B57F9",
   primaryText: "#EEE",
   secondaryText: "#AAA",
+  tertiaryText: "#838383",
   cardBorder: "44, 44, 47",
   background: "18, 18, 18",
   cardBackground: "#121212",

@@ -9,6 +9,7 @@ declare module "styled-components" {
     theme: string;
     primaryText: string;
     secondaryText: string;
+    tertiaryText: string;
     background: string;
     cardBorder: string;
     cardBackground: string;
