@@ -1,5 +1,5 @@
 import { AlertCircle, ChevronDown, SearchSm } from "@untitled-ui/icons-react";
-import { HTMLProps, ReactNode, useMemo, useState } from "react";
+import { CSSProperties, HTMLProps, ReactNode, useMemo, useState } from "react";
 import styled from "styled-components";
 import { InputStatus } from "../hooks";
 
@@ -19,10 +19,10 @@ export function Input({
   iconRight,
   errorMessage,
   special,
+  inputContainerStyle,
+  labelStyle,
   ...props
-}: Omit<SharedPropsV2, "hasLeftIcon"> &
-  InputV2Props &
-  HTMLProps<HTMLInputElement>) {
+}: SharedPropsV2 & InputV2Props & HTMLProps<HTMLInputElement>) {
   const [isFocused, setIsFocused] = useState(false);
   const [blurTimeout, setBlurTimeout] = useState<NodeJS.Timeout | null>(null);
   const inputV2Props = useMemo<any>(
@@ -90,8 +90,12 @@ export function Input({
 
   return (
     <>
-      {label && <LabelV2>{label}</LabelV2>}
-      <InputContainer fullWidth={fullWidth} size={size}>
+      {label && <LabelV2 style={labelStyle}>{label}</LabelV2>}
+      <InputContainer
+        fullWidth={fullWidth}
+        size={size}
+        style={inputContainerStyle}
+      >
         <InputV2Wrapper
           fullWidth={fullWidth}
           size={size}
@@ -130,6 +134,8 @@ export interface SharedPropsV2 {
   status?: InputStatus;
   disabled?: boolean;
   hasRightIcon?: boolean;
+  inputContainerStyle?: CSSProperties;
+  labelStyle?: CSSProperties;
 }
 
 export interface InputV2Props {
