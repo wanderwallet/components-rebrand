@@ -91,11 +91,7 @@ export function Input({
   return (
     <>
       {label && <LabelV2 style={labelStyle}>{label}</LabelV2>}
-      <InputContainer
-        fullWidth={fullWidth}
-        size={size}
-        style={inputContainerStyle}
-      >
+      <InputContainer fullWidth={fullWidth} size={size}>
         <InputV2Wrapper
           fullWidth={fullWidth}
           size={size}
@@ -103,6 +99,7 @@ export function Input({
           disabled={disabled}
           variant={variant}
           special={special}
+          style={inputContainerStyle}
         >
           {LeftIconComponent && (
             <IconWrapperV2 position="left">{LeftIconComponent}</IconWrapperV2>

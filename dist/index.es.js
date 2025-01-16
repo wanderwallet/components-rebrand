@@ -1074,38 +1074,31 @@ function Om({
   }, S = () => a || (s === "dropdown" ? /* @__PURE__ */ C(Sl, { height: 20, width: 20 }) : h.value && p ? /* @__PURE__ */ C(Fl, { onClick: b, height: 20, width: 20 }) : r === "error" ? /* @__PURE__ */ C(Cl, { height: 20, width: 20, color: "#D22B1F" }) : null), L = (() => i || (s === "search" ? /* @__PURE__ */ C(Dl, { disabled: o }) : null))(), U = S();
   return /* @__PURE__ */ j(ji, { children: [
     t && /* @__PURE__ */ C(Ni, { style: d, children: t }),
-    /* @__PURE__ */ C(
-      kl,
+    /* @__PURE__ */ C(kl, { fullWidth: e, size: n, children: /* @__PURE__ */ j(
+      $i,
       {
         fullWidth: e,
         size: n,
+        status: r ?? "default",
+        disabled: o,
+        variant: s,
+        special: c,
         style: u,
-        children: /* @__PURE__ */ j(
-          $i,
-          {
-            fullWidth: e,
-            size: n,
-            status: r ?? "default",
-            disabled: o,
-            variant: s,
-            special: c,
-            children: [
-              L && /* @__PURE__ */ C(Wn, { position: "left", children: L }),
-              /* @__PURE__ */ C(
-                Ol,
-                {
-                  ...x,
-                  disabled: o,
-                  onFocus: () => m(!0),
-                  onBlur: T
-                }
-              ),
-              U && /* @__PURE__ */ C(Wn, { position: "right", children: U })
-            ]
-          }
-        )
+        children: [
+          L && /* @__PURE__ */ C(Wn, { position: "left", children: L }),
+          /* @__PURE__ */ C(
+            Ol,
+            {
+              ...x,
+              disabled: o,
+              onFocus: () => m(!0),
+              onBlur: T
+            }
+          ),
+          U && /* @__PURE__ */ C(Wn, { position: "right", children: U })
+        ]
       }
-    ),
+    ) }),
     r === "error" && /* @__PURE__ */ C(Vl, { children: l })
   ] });
 }
