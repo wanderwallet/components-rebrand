@@ -32,9 +32,7 @@ export function ListItem({
       <ContentWrapper>
         {!hideSquircle || img ? (
           <IconWrapper small={small} img={img} squircleSize={squircleSize}>
-            {!img && (
-              <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
-            )}
+            <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
           </IconWrapper>
         ) : (
           leftIcon || icon || children
