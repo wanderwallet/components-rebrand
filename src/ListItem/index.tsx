@@ -18,6 +18,8 @@ export function ListItem({
   subtitleExtraStyle,
   img,
   icon,
+  leftIcon,
+  rightIcon,
   dragControls,
   showArrow = false,
   squircleSize = small ? 32 : 48,
@@ -27,12 +29,14 @@ export function ListItem({
   return (
     <Wrapper small={small} active={active} {...(props as any)}>
       <ContentWrapper>
-        {!hideSquircle ? (
+        {!hideSquircle || img ? (
           <IconWrapper small={small} img={img} squircleSize={squircleSize}>
-            {!img && <ListItemIcon>{icon || children}</ListItemIcon>}
+            {!img && (
+              <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
+            )}
           </IconWrapper>
         ) : (
-          icon || children
+          leftIcon || icon || children
         )}
         <div>
           <ItemName small={small} style={titleStyle}>
@@ -51,6 +55,14 @@ export function ListItem({
             {subtitleExtra}
           </ItemSubtitleExtra>
         )}
+        {rightIcon &&
+          (!hideSquircle ? (
+            <IconWrapper small={small} squircleSize={squircleSize}>
+              <ListItemIcon>{rightIcon}</ListItemIcon>
+            </IconWrapper>
+          ) : (
+            rightIcon
+          ))}
         {!dragControls && showArrow && <ArrowIcon />}
         {dragControls && <ReorderIcon dragControls={dragControls} />}
       </RightWrapper>
@@ -167,6 +179,8 @@ interface Props {
   subtitleExtraStyle?: CSSProperties;
   img?: string;
   icon?: ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   dragControls?: DragControls;
   showArrow?: boolean;
   squircleSize?: number;

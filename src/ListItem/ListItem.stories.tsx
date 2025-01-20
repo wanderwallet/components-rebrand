@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Reorder, useDragControls } from "framer-motion";
 import { ListItem, ListItemIcon } from "./index";
 import { ComponentProps, useState } from "react";
-import { UsersPlusIcon } from "@iconicicons/react";
+import { BoxIcon, UsersPlusIcon } from "@iconicicons/react";
 import { User01 } from "@untitled-ui/icons-react";
 
 export default {
@@ -84,6 +84,7 @@ Children.args = {
   hideSquircle: true,
   subtitleExtra: "1",
   showArrow: true,
+  rightIcon: <BoxIcon />,
   children: (
     <img
       style={{ borderRadius: 12 }}
