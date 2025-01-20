@@ -2,7 +2,7 @@ import * as V from "react";
 import be, { useState as rt, useCallback as ze, useMemo as At, useEffect as Q, createContext as Lt, useContext as G, useLayoutEffect as el, useRef as et, forwardRef as nl, createElement as _i, useId as pr, useInsertionEffect as rl, cloneElement as ol, Children as il, isValidElement as sl } from "react";
 import A, { keyframes as al, ThemeProvider as ll } from "styled-components";
 import Ii from "react-dom";
-function Pm(t) {
+function Am(t) {
   const [e, n] = rt(t), [r, o] = rt("default");
   return {
     state: e,
@@ -20,7 +20,7 @@ function Pm(t) {
     }
   };
 }
-function Rm(t = !1) {
+function Pm(t = !1) {
   const [e, n] = rt(t);
   return {
     state: e,
@@ -32,7 +32,7 @@ function Rm(t = !1) {
     }
   };
 }
-function km(t = !1) {
+function Rm(t = !1) {
   const [e, n] = rt(t);
   return {
     isOpen: e,
@@ -848,7 +848,7 @@ const vl = A.p`
   ${(t) => t.$lineHeight && `line-height: ${t.$lineHeight};`}
   color: ${(t) => t.$variant === "primary" ? t.theme.primaryText : t.$variant === "secondary" ? t.theme.secondaryText : t.theme.tertiaryText};
   ${(t) => t.$noMargin && "margin: 0;"}
-`, Vm = ({
+`, km = ({
   checked: t,
   onChange: e,
   size: n = 24,
@@ -1023,7 +1023,7 @@ const Rl = {
   small: "42px",
   normal: "52px"
 };
-function Om({
+function Vm({
   label: t,
   fullWidth: e,
   size: n = "normal",
@@ -2976,7 +2976,7 @@ const hu = A.div`
   width: 100%;
   height: 100%;
 `;
-function Dm({
+function Om({
   children: t,
   small: e = !1,
   active: n,
@@ -3057,7 +3057,7 @@ const mu = A.div`
   color: ${(t) => t.theme.listItem.icon};
   width: 24px;
   height: 24px;
-`, Fm = A(jl)`
+`, Dm = A(jl)`
   position: absolute;
   font-size: 1.5rem;
   width: 1em;
@@ -3066,7 +3066,7 @@ const mu = A.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`, Lm = A.img.attrs({
+`, Fm = A.img.attrs({
   alt: "icon",
   draggable: !1
 })`
@@ -7257,7 +7257,7 @@ const Xt = ({ children: t, custom: e, initial: n = !0, onExitComplete: r, exitBe
     return h.has(S) ? b : V.createElement(zn, { key: $t(b), isPresent: !0, presenceAffectsLayout: s, mode: i }, b);
   }), Lr !== "production" && i === "wait" && d.length > 1 && console.warn(`You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`), V.createElement(V.Fragment, null, h.size ? d : d.map((b) => ol(b)));
 };
-function Bm({
+function Mm({
   children: t,
   content: e,
   position: n = "top",
@@ -7492,7 +7492,7 @@ const nn = ".35rem", Zp = A.div`
   max-width: calc(100% - 2rem);
   width: 420px;
   z-index: 10000;
-`, _m = {
+`, Bm = {
   displayTheme: "light",
   theme: "#6B57F9",
   primaryText: "#121212",
@@ -7580,7 +7580,7 @@ const nn = ".35rem", Zp = A.div`
     active: "#EBEBF0",
     icon: "#838383"
   }
-}, Im = {
+}, _m = {
   displayTheme: "dark",
   theme: "#6B57F9",
   primaryText: "#EEE",
@@ -7669,7 +7669,7 @@ const nn = ".35rem", Zp = A.div`
     icon: "#838383"
   }
 };
-function jm({
+function Im({
   children: t,
   theme: e
 }) {
@@ -7689,21 +7689,11 @@ function jm({
     t
   ] }) });
 }
-const sm = {
-  popup: {
-    normal: "20px",
-    slim: "12px"
-  },
-  page: {
-    normal: "12vw",
-    slim: "24px"
-  }
-}, $m = A.div`
+const jm = A.div`
   position: relative;
-  padding: 1rem
-    ${(t) => sm[t.type || "popup"][t.size || "normal"]};
+  padding: ${({ showPaddingHorizontal: t = !0, showPaddingVertical: e = !0 }) => `${e ? "24px" : "0px"} ${t ? "24px" : "0px"}`};
 `;
-function Nm({
+function $m({
   children: t,
   label: e,
   fullWidth: n,
@@ -7724,14 +7714,14 @@ function Nm({
         size: "small",
         status: o ?? "default",
         children: [
-          /* @__PURE__ */ C(am, { ...i, children: t }),
+          /* @__PURE__ */ C(sm, { ...i, children: t }),
           /* @__PURE__ */ C(Wn, { position: "right", children: /* @__PURE__ */ C(Ml, {}) })
         ]
       }
     )
   ] });
 }
-const am = A.select`
+const sm = A.select`
   outline: none;
   border: none;
   background-color: transparent;
@@ -7756,7 +7746,7 @@ const am = A.select`
   option {
   }
 `;
-function Um({
+function Nm({
   children: t,
   content: e,
   underline: n = !1,
@@ -7766,14 +7756,14 @@ function Um({
   var a, l, c;
   const [s, i] = rt(!1);
   return /* @__PURE__ */ j(
-    lm,
+    am,
     {
       onMouseEnter: () => i(!0),
       onMouseLeave: () => i(!1),
       underline: n,
       children: [
         /* @__PURE__ */ C(Xt, { children: s && /* @__PURE__ */ C(
-          cm,
+          lm,
           {
             ...o,
             position: r,
@@ -7799,12 +7789,12 @@ function Um({
     }
   );
 }
-const lm = A.div`
+const am = A.div`
   position: relative;
   display: inline-flex;
   ${(t) => t.underline ? "border-bottom: 1px dotted rgb(" + t.theme.cardBorder + ");" : ""}
   ${(t) => t.underline ? "cursor: pointer;" : ""}
-`, cm = A(Jt.div)`
+`, lm = A(Jt.div)`
   position: absolute;
   padding: 0.37rem 0.58rem;
   border-radius: 7px;
@@ -7867,14 +7857,14 @@ function _e(t) {
     }
   }[t];
 }
-function um(t) {
+function cm(t) {
   let e = "";
   return t.startsWith("top") ? e += "bottom" : t.startsWith("bottom") ? e += "top" : t.startsWith("right") ? e += "left" : e += "right", e += `: -15px;
 `, t.startsWith("top") || t.startsWith("bottom") ? t.includes("Start") ? e += "left: 15px;" : t.includes("End") ? e += "right: 15px;" : (e += `left: 50%;
 `, e += "transform: translate(-50%, 0);") : t.includes("Start") ? e += "top: 15px;" : t.includes("End") ? e += "bottom: 15px;" : (e += `top: 50%;
 `, e += "transform: translate(0, -50%);"), e;
 }
-function zm({
+function Um({
   children: t,
   content: e,
   underline: n = !1,
@@ -7884,14 +7874,14 @@ function zm({
   var a, l, c;
   const [s, i] = rt(!1);
   return /* @__PURE__ */ j(
-    dm,
+    um,
     {
       onMouseEnter: () => i(!0),
       onMouseLeave: () => i(!1),
       underline: n,
       children: [
         /* @__PURE__ */ C(Xt, { children: s && /* @__PURE__ */ C(
-          fm,
+          dm,
           {
             ...o,
             position: r,
@@ -7917,12 +7907,12 @@ function zm({
     }
   );
 }
-const dm = A.div`
+const um = A.div`
   position: relative;
   display: inline-flex;
   ${(t) => t.underline ? "border-bottom: 1px dotted rgb(" + t.theme.cardBorder + ");" : ""}
   ${(t) => t.underline ? "cursor: pointer;" : ""}
-`, fm = A(Jt.div)`
+`, dm = A(Jt.div)`
   position: absolute;
   display: flex;
   align-items: center;
@@ -7950,14 +7940,14 @@ const dm = A.div`
       ${(t) => t.position.startsWith("right") ? t.theme.backgroundSecondary : "transparent"}
       ${(t) => t.position.startsWith("bottom") ? t.theme.backgroundSecondary : "transparent"}
       ${(t) => t.position.startsWith("left") ? t.theme.backgroundSecondary : "transparent"};
-    ${(t) => um(t.position)}
+    ${(t) => cm(t.position)}
   }
-`, Wm = A.span`
+`, zm = A.span`
   display: block;
   height: ${({ y: t }) => t ? `${t}rem` : "0"};
   width: ${({ x: t }) => t ? `${t}rem` : "0"};
 `;
-function Hm({
+function Wm({
   children: t,
   accept: e,
   multiple: n,
@@ -7979,16 +7969,16 @@ function Hm({
       var l;
       return (l = r.current) == null ? void 0 : l.removeEventListener("change", a);
     };
-  }, [r == null ? void 0 : r.current]), /* @__PURE__ */ j(hm, { ...o, children: [
+  }, [r == null ? void 0 : r.current]), /* @__PURE__ */ j(fm, { ...o, children: [
     /* @__PURE__ */ C(rn, { children: s.length === 0 && t || s.join(", ") }),
-    /* @__PURE__ */ C(mm, { onClick: () => {
+    /* @__PURE__ */ C(pm, { onClick: () => {
       var a;
       return (a = r == null ? void 0 : r.current) == null ? void 0 : a.click();
     }, children: /* @__PURE__ */ C(_l, {}) }),
-    /* @__PURE__ */ C(pm, { accept: e, multiple: n, ref: r })
+    /* @__PURE__ */ C(hm, { accept: e, multiple: n, ref: r })
   ] });
 }
-const hm = A(mr).attrs({
+const fm = A(mr).attrs({
   smallPadding: !0
 })`
   position: relative;
@@ -7997,7 +7987,7 @@ const hm = A(mr).attrs({
   justify-content: space-between;
   z-index: 1;
   border-width: 2px;
-`, pm = A.input.attrs({
+`, hm = A.input.attrs({
   type: "file"
 })`
   position: absolute;
@@ -8012,14 +8002,14 @@ const hm = A(mr).attrs({
   left: 0;
   right: 0;
   bottom: 0;
-`, mm = A(ml).attrs({
+`, pm = A(ml).attrs({
   secondary: !0
 })`
   z-index: 20;
   padding: 0.9rem;
   border-radius: 20px;
 `;
-function qm({
+function Hm({
   children: t,
   open: e,
   setOpen: n,
@@ -8027,14 +8017,14 @@ function qm({
   root: o
 }) {
   return Ii.createPortal(
-    /* @__PURE__ */ C(Xt, { children: e && /* @__PURE__ */ C(gm, { onClick: () => n(!1), children: /* @__PURE__ */ j(ym, { onClick: (s) => s.stopPropagation(), children: [
-      /* @__PURE__ */ C(vm, { children: t }),
-      r && /* @__PURE__ */ C(bm, { children: r })
+    /* @__PURE__ */ C(Xt, { children: e && /* @__PURE__ */ C(mm, { onClick: () => n(!1), children: /* @__PURE__ */ j(gm, { onClick: (s) => s.stopPropagation(), children: [
+      /* @__PURE__ */ C(ym, { children: t }),
+      r && /* @__PURE__ */ C(vm, { children: r })
     ] }) }) }),
     o || document.getElementById("root")
   );
 }
-const gm = A(Jt.div).attrs({
+const mm = A(Jt.div).attrs({
   variants: {
     open: {
       opacity: 1,
@@ -8068,7 +8058,7 @@ const gm = A(Jt.div).attrs({
   max-height: 100%;
   overflow-y: auto;
   padding: 2rem 0;
-`, ym = A(mr)`
+`, gm = A(mr)`
   padding: 0;
   background-color: rgb(${(t) => t.theme.background});
   max-width: 47%;
@@ -8079,13 +8069,13 @@ const gm = A(Jt.div).attrs({
   @media screen and (max-width: 720px) {
     max-width: 94vw;
   }
-`, vm = A.div`
+`, ym = A.div`
   padding: 1rem;
-`, bm = A.div`
+`, vm = A.div`
   display: flex;
   align-items: center;
   justify-content: stretch;
-`, Gm = A.button`
+`, qm = A.button`
   outline: none;
   border: none;
   border-top: 1px solid rgb(${(t) => t.theme.cardBorder});
@@ -8104,7 +8094,7 @@ const gm = A(Jt.div).attrs({
     background-color: rgba(${(t) => t.theme.cardBorder}, 0.35);
   }
 `;
-function Km({
+function Gm({
   children: t,
   open: e,
   setOpen: n,
@@ -8112,14 +8102,14 @@ function Km({
   root: o
 }) {
   return Ii.createPortal(
-    /* @__PURE__ */ C(Xt, { children: e && /* @__PURE__ */ C(xm, { onClick: () => n(!1), children: /* @__PURE__ */ j(wm, { onClick: (s) => s.stopPropagation(), children: [
-      /* @__PURE__ */ C(Tm, { children: t }),
-      r && /* @__PURE__ */ C(Em, { children: r })
+    /* @__PURE__ */ C(Xt, { children: e && /* @__PURE__ */ C(bm, { onClick: () => n(!1), children: /* @__PURE__ */ j(xm, { onClick: (s) => s.stopPropagation(), children: [
+      /* @__PURE__ */ C(wm, { children: t }),
+      r && /* @__PURE__ */ C(Tm, { children: r })
     ] }) }) }),
     o || document.getElementById("root")
   );
 }
-const xm = A(Jt.div).attrs({
+const bm = A(Jt.div).attrs({
   variants: {
     open: {
       opacity: 1,
@@ -8153,7 +8143,7 @@ const xm = A(Jt.div).attrs({
   max-height: 100%;
   overflow-y: auto;
   padding: 2rem 0;
-`, wm = A.div`
+`, xm = A.div`
   background-color: ${(t) => t.theme.displayTheme === "light" ? t.theme.backgroundv2 : t.theme.backgroundSecondary};
   outline: 1px solid #7866d3;
   border-radius: 10px;
@@ -8162,14 +8152,14 @@ const xm = A(Jt.div).attrs({
   padding: 24px 30px;
   box-sizing: border-box;
   gap: 16px;
-`, Tm = A.div`
+`, wm = A.div`
   font-size: 18px;
   font-weight: 600;
   text-align: center;
   color: ${(t) => t.theme.primaryTextv2};
   line-height: 25px;
   align-self: stretch;
-`, Em = A.div`
+`, Tm = A.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8177,36 +8167,36 @@ const xm = A(Jt.div).attrs({
   gap: 10px;
 `;
 export {
-  Im as ARCONNECT_DARK_THEME,
-  _m as ARCONNECT_LIGHT_THEME,
+  _m as ARCONNECT_DARK_THEME,
+  Bm as ARCONNECT_LIGHT_THEME,
   ml as Button,
   mr as Card,
-  Vm as Checkbox,
+  km as Checkbox,
   Vl as ErrorMsg,
-  Hm as FileInput,
+  Wm as FileInput,
   Wn as IconWrapperV2,
-  Om as Input,
+  Vm as Input,
   kl as InputContainer,
   Ol as InputV2Element,
   $i as InputV2Wrapper,
   Ni as LabelV2,
-  Dm as ListItem,
-  Fm as ListItemIcon,
-  Lm as ListItemImg,
+  Om as ListItem,
+  Dm as ListItemIcon,
+  Fm as ListItemImg,
   fl as Loading,
-  qm as Modal,
-  Gm as ModalButton,
-  Km as ModalV2,
-  Bm as Popover,
-  jm as Provider,
-  $m as Section,
-  Nm as SelectV2,
-  Wm as Spacer,
+  Hm as Modal,
+  qm as ModalButton,
+  Gm as ModalV2,
+  Mm as Popover,
+  Im as Provider,
+  jm as Section,
+  $m as SelectV2,
+  zm as Spacer,
   rn as Text,
-  Um as Tooltip,
-  zm as TooltipV2,
-  Rm as useCheckbox,
-  Pm as useInput,
-  km as useModal,
+  Nm as Tooltip,
+  Um as TooltipV2,
+  Pm as useCheckbox,
+  Am as useInput,
+  Rm as useModal,
   Kp as useToasts
 };
