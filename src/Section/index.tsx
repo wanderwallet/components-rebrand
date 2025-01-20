@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Section = styled.div<SectionProps>`
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding: ${({ showPaddingHorizontal = true, showPaddingVertical = true }) => {
     const h = showPaddingHorizontal ? "24px" : "0px";

@@ -7393,9 +7393,7 @@ const Pa = ".2rem", Xp = A(Jt.div).attrs({
   font-size: 1rem;
   color: #fff;
   font-weight: 500;
-  background-color: rgb(
-    ${(t) => t.theme.displayTheme === "light" ? "0, 0, 0" : t.theme.cardBackground}
-  );
+  background-color: ${(t) => t.theme.displayTheme === "light" ? "black" : t.theme.cardBackground};
   border-radius: 8px;
   //padding: .5rem 1.1rem calc(.5rem + ${Pa});
   padding: 0.5rem 1.1rem;
@@ -7690,6 +7688,8 @@ function Im({
   ] }) });
 }
 const jm = A.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
   padding: ${({ showPaddingHorizontal: t = !0, showPaddingVertical: e = !0 }) => `${e ? "24px" : "0px"} ${t ? "24px" : "0px"}`};
 `;
