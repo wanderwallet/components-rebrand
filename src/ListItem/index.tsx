@@ -10,6 +10,7 @@ export function ListItem({
   children,
   small = false,
   active,
+  height,
   title,
   titleStyle,
   subtitle,
@@ -27,7 +28,7 @@ export function ListItem({
   ...props
 }: Props & HTMLProps<HTMLDivElement>) {
   return (
-    <Wrapper small={small} active={active} {...(props as any)}>
+    <Wrapper small={small} active={active} height={height} {...(props as any)}>
       <ContentWrapper>
         {!hideSquircle || img ? (
           <IconWrapper small={small} img={img} squircleSize={squircleSize}>
@@ -70,7 +71,11 @@ export function ListItem({
   );
 }
 
-const Wrapper = styled.div<{ active: boolean; small: boolean }>`
+const Wrapper = styled.div<{
+  active: boolean;
+  small: boolean;
+  height?: number;
+}>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -78,7 +83,9 @@ const Wrapper = styled.div<{ active: boolean; small: boolean }>`
   overflow: hidden;
   cursor: pointer;
   padding: 8px;
-  height: ${(props) => (props.small ? "36px" : "48px")};
+  height: ${(props) =>
+    props.height ? `${props.height}px` : props.small ? "36px" : "48px"};
+  box-sizing: border-box;
   transition: all 0.23s ease-in-out;
 
   background-color: ${(props) =>
@@ -185,4 +192,5 @@ interface Props {
   showArrow?: boolean;
   squircleSize?: number;
   hideSquircle?: boolean;
+  height?: number;
 }
