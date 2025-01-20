@@ -74,7 +74,7 @@ export function ListItem({
 const Wrapper = styled.div<{
   active: boolean;
   small: boolean;
-  height?: number;
+  height?: number | string;
 }>`
   display: flex;
   align-items: center;
@@ -178,11 +178,11 @@ const RightWrapper = styled.div`
 interface Props {
   small?: boolean;
   active?: boolean;
-  title: string | ReactNode;
+  title: ReactNode;
   titleStyle?: CSSProperties;
-  subtitle?: string | ReactNode;
+  subtitle?: ReactNode;
   subtitleStyle?: CSSProperties;
-  subtitleExtra?: string | ReactNode;
+  subtitleExtra?: ReactNode;
   subtitleExtraStyle?: CSSProperties;
   img?: string;
   icon?: ReactNode;
@@ -192,5 +192,5 @@ interface Props {
   showArrow?: boolean;
   squircleSize?: number;
   hideSquircle?: boolean;
-  height?: number;
+  height?: number | string;
 }
