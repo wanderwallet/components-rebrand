@@ -1,5 +1,4 @@
 import type { DragControls } from "framer-motion";
-import { UsersPlusIcon } from "@iconicicons/react";
 import { CSSProperties, HTMLProps, ReactNode } from "react";
 import ReorderIcon from "../ReorderIcon";
 import styled from "styled-components";
@@ -15,6 +14,8 @@ export function ListItem({
   titleStyle,
   description,
   descriptionStyle,
+  descriptionExtra,
+  descriptionExtraStyle,
   img,
   dragControls,
   showArrow = false,
@@ -44,8 +45,15 @@ export function ListItem({
           )}
         </div>
       </ContentWrapper>
-      {!dragControls && showArrow && <ArrowIcon />}
-      {dragControls && <ReorderIcon dragControls={dragControls} />}
+      <RightWrapper>
+        {descriptionExtra && (
+          <ItemDescriptionExtra small={small} style={descriptionExtraStyle}>
+            {descriptionExtra}
+          </ItemDescriptionExtra>
+        )}
+        {!dragControls && showArrow && <ArrowIcon />}
+        {dragControls && <ReorderIcon dragControls={dragControls} />}
+      </RightWrapper>
     </Wrapper>
   );
 }
@@ -105,13 +113,21 @@ const ItemDescription = styled(Text).attrs({
   font-size: ${(props) => (props.small ? "12px" : "14px")};
 `;
 
+const ItemDescriptionExtra = styled(Text).attrs({
+  noMargin: true,
+  variant: "secondary",
+  weight: "medium"
+})<{ small: boolean }>`
+  font-size: ${(props) => (props.small ? "14px" : "16px")};
+`;
+
 const ArrowIcon = styled(ChevronRight)`
   color: ${(props) => props.theme.listItem.icon};
   width: 24px;
   height: 24px;
 `;
 
-export const ListItemIcon = styled(UsersPlusIcon)`
+export const ListItemIcon = styled.div`
   position: absolute;
   font-size: 1.5rem;
   width: 1em;
@@ -134,6 +150,12 @@ export const ListItemImg = styled.img.attrs({
   transform: translate(-50%, -50%);
 `;
 
+const RightWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
 interface Props {
   small?: boolean;
   active?: boolean;
@@ -141,6 +163,8 @@ interface Props {
   titleStyle?: CSSProperties;
   description?: string | ReactNode;
   descriptionStyle?: CSSProperties;
+  descriptionExtra?: string | ReactNode;
+  descriptionExtraStyle?: CSSProperties;
   img?: string;
   dragControls?: DragControls;
   showArrow?: boolean;

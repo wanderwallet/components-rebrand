@@ -2,6 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Reorder, useDragControls } from "framer-motion";
 import { ListItem, ListItemIcon } from "./index";
 import { ComponentProps, useState } from "react";
+import { UsersPlusIcon } from "@iconicicons/react";
 
 export default {
   title: "ListItem",
@@ -10,7 +11,11 @@ export default {
 
 const Template: ComponentStory<typeof ListItem> = (args) => (
   <ListItem {...args}>
-    {!args.img && !args.children && <ListItemIcon />}
+    {!args.img && !args.children && (
+      <ListItemIcon>
+        <UsersPlusIcon />
+      </ListItemIcon>
+    )}
     {args.children}
   </ListItem>
 );
@@ -75,6 +80,8 @@ export const Children = Template.bind({});
 Children.args = {
   ...defaultArgs,
   hideSquircle: true,
+  descriptionExtra: "1",
+  showArrow: true,
   children: (
     <img
       style={{ borderRadius: 12, position: "absolute", top: 0, left: 0 }}
