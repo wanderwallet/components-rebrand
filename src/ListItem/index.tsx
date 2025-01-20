@@ -12,11 +12,12 @@ export function ListItem({
   active,
   title,
   titleStyle,
-  description,
-  descriptionStyle,
-  descriptionExtra,
-  descriptionExtraStyle,
+  subtitle,
+  subtitleStyle,
+  subtitleExtra,
+  subtitleExtraStyle,
   img,
+  icon,
   dragControls,
   showArrow = false,
   squircleSize = small ? 32 : 48,
@@ -26,30 +27,29 @@ export function ListItem({
   return (
     <Wrapper small={small} active={active} {...(props as any)}>
       <ContentWrapper>
-        <IconWrapper
-          small={small}
-          img={img}
-          squircleSize={squircleSize}
-          hideSquircle={hideSquircle}
-        >
-          {children}
-        </IconWrapper>
+        {!hideSquircle ? (
+          <IconWrapper small={small} img={img} squircleSize={squircleSize}>
+            {!img && <ListItemIcon>{icon || children}</ListItemIcon>}
+          </IconWrapper>
+        ) : (
+          icon || children
+        )}
         <div>
           <ItemName small={small} style={titleStyle}>
             {title}
           </ItemName>
-          {description && (
-            <ItemDescription small={small} style={descriptionStyle}>
-              {description}
-            </ItemDescription>
+          {subtitle && (
+            <ItemSubtitle small={small} style={subtitleStyle}>
+              {subtitle}
+            </ItemSubtitle>
           )}
         </div>
       </ContentWrapper>
       <RightWrapper>
-        {descriptionExtra && (
-          <ItemDescriptionExtra small={small} style={descriptionExtraStyle}>
-            {descriptionExtra}
-          </ItemDescriptionExtra>
+        {subtitleExtra && (
+          <ItemSubtitleExtra small={small} style={subtitleExtraStyle}>
+            {subtitleExtra}
+          </ItemSubtitleExtra>
         )}
         {!dragControls && showArrow && <ArrowIcon />}
         {dragControls && <ReorderIcon dragControls={dragControls} />}
@@ -105,7 +105,7 @@ const ItemName = styled(Text).attrs({
   max-width: 250px;
 `;
 
-const ItemDescription = styled(Text).attrs({
+const ItemSubtitle = styled(Text).attrs({
   noMargin: true,
   variant: "secondary",
   weight: "medium"
@@ -113,7 +113,7 @@ const ItemDescription = styled(Text).attrs({
   font-size: ${(props) => (props.small ? "12px" : "14px")};
 `;
 
-const ItemDescriptionExtra = styled(Text).attrs({
+const ItemSubtitleExtra = styled(Text).attrs({
   noMargin: true,
   variant: "secondary",
   weight: "medium"
@@ -161,11 +161,12 @@ interface Props {
   active?: boolean;
   title: string | ReactNode;
   titleStyle?: CSSProperties;
-  description?: string | ReactNode;
-  descriptionStyle?: CSSProperties;
-  descriptionExtra?: string | ReactNode;
-  descriptionExtraStyle?: CSSProperties;
+  subtitle?: string | ReactNode;
+  subtitleStyle?: CSSProperties;
+  subtitleExtra?: string | ReactNode;
+  subtitleExtraStyle?: CSSProperties;
   img?: string;
+  icon?: ReactNode;
   dragControls?: DragControls;
   showArrow?: boolean;
   squircleSize?: number;

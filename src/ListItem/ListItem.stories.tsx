@@ -3,6 +3,7 @@ import { Reorder, useDragControls } from "framer-motion";
 import { ListItem, ListItemIcon } from "./index";
 import { ComponentProps, useState } from "react";
 import { UsersPlusIcon } from "@iconicicons/react";
+import { User01 } from "@untitled-ui/icons-react";
 
 export default {
   title: "ListItem",
@@ -11,7 +12,7 @@ export default {
 
 const Template: ComponentStory<typeof ListItem> = (args) => (
   <ListItem {...args}>
-    {!args.img && !args.children && (
+    {!args.icon && !args.children && (
       <ListItemIcon>
         <UsersPlusIcon />
       </ListItemIcon>
@@ -24,7 +25,7 @@ const defaultArgs: ComponentProps<typeof ListItem> = {
   active: false,
   showArrow: false,
   title: "Contacts",
-  description: "Add/edit contacts"
+  subtitle: "Add/edit contacts"
 };
 
 const TemplateDraggable: ComponentStory<typeof ListItem> = (args) => {
@@ -48,7 +49,7 @@ const TemplateDraggable: ComponentStory<typeof ListItem> = (args) => {
           dragControls={dragControls}
         >
           <ListItem {...args} dragControls={dragControls}>
-            {!args.img && <ListItemIcon />}
+            {!args.icon && <ListItemIcon />}
           </ListItem>
         </Reorder.Item>
       ))}
@@ -66,13 +67,14 @@ Small.args = {
   active: false,
   showArrow: false,
   title: "USD",
-  description: "United States Dollar"
+  subtitle: "United States Dollar",
+  icon: <User01 height={24} width={24} />
 };
 
 export const Draggable = TemplateDraggable.bind({});
 Draggable.args = {
   title: "Tokens",
-  description: "x1aoxArDf02xbgrua20492bdfg4",
+  subtitle: "x1aoxArDf02xbgrua20492bdfg4",
   showArrow: false
 };
 
@@ -80,11 +82,11 @@ export const Children = Template.bind({});
 Children.args = {
   ...defaultArgs,
   hideSquircle: true,
-  descriptionExtra: "1",
+  subtitleExtra: "1",
   showArrow: true,
   children: (
     <img
-      style={{ borderRadius: 12, position: "absolute", top: 0, left: 0 }}
+      style={{ borderRadius: 12 }}
       src="https://picsum.photos/200/300"
       height={50}
       width={50}
