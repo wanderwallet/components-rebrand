@@ -11,7 +11,7 @@ const heights = {
 export function Input({
   label,
   fullWidth,
-  size = "normal" as never,
+  sizeVariant = "normal",
   status = "default",
   disabled,
   variant = "default",
@@ -28,7 +28,7 @@ export function Input({
   const inputV2Props = useMemo<any>(
     () => ({
       fullWidth,
-      size,
+      sizeVariant,
       variant,
       status,
       disabled,
@@ -39,7 +39,7 @@ export function Input({
     }),
     [
       fullWidth,
-      size,
+      sizeVariant,
       variant,
       status,
       disabled,
@@ -91,30 +91,28 @@ export function Input({
   return (
     <>
       {label && <LabelV2 style={labelStyle}>{label}</LabelV2>}
-      <InputContainer fullWidth={fullWidth} size={size}>
-        <InputV2Wrapper
-          fullWidth={fullWidth}
-          size={size}
-          status={status ?? "default"}
+      <InputV2Wrapper
+        fullWidth={fullWidth}
+        sizeVariant={sizeVariant}
+        status={status ?? "default"}
+        disabled={disabled}
+        variant={variant}
+        special={special}
+        style={inputContainerStyle}
+      >
+        {LeftIconComponent && (
+          <IconWrapperV2 position="left">{LeftIconComponent}</IconWrapperV2>
+        )}
+        <InputV2Element
+          {...inputV2Props}
           disabled={disabled}
-          variant={variant}
-          special={special}
-          style={inputContainerStyle}
-        >
-          {LeftIconComponent && (
-            <IconWrapperV2 position="left">{LeftIconComponent}</IconWrapperV2>
-          )}
-          <InputV2Element
-            {...inputV2Props}
-            disabled={disabled}
-            onFocus={() => setIsFocused(true)}
-            onBlur={handleBlur}
-          />
-          {RightIconComponent && (
-            <IconWrapperV2 position="right">{RightIconComponent}</IconWrapperV2>
-          )}
-        </InputV2Wrapper>
-      </InputContainer>
+          onFocus={() => setIsFocused(true)}
+          onBlur={handleBlur}
+        />
+        {RightIconComponent && (
+          <IconWrapperV2 position="right">{RightIconComponent}</IconWrapperV2>
+        )}
+      </InputV2Wrapper>
       {status === "error" && <ErrorMsg>{errorMessage}</ErrorMsg>}
     </>
   );
@@ -125,7 +123,7 @@ type InputVariant = "default" | "search" | "dropdown";
 
 export interface SharedPropsV2 {
   fullWidth?: boolean;
-  size?: InputSize;
+  sizeVariant?: InputSize;
   variant?: InputVariant;
   special?: boolean;
   status?: InputStatus;
@@ -142,18 +140,14 @@ export interface InputV2Props {
   errorMessage?: string;
 }
 
-export const InputContainer = styled.div<SharedPropsV2>`
-  height: ${(props) => heights[props.size ?? "normal"]};
-  width: ${(props) => (props.fullWidth ? "100%" : "345px")};
-  box-sizing: border-box;
-`;
-
 export const InputV2Wrapper = styled.div<SharedPropsV2>`
   position: relative;
   display: flex;
   gap: 4px;
   align-items: center;
-  padding: ${(props) => (props.size === "small" ? "12px" : "12px 14px")};
+  height: ${(props) => heights[props.sizeVariant ?? "normal"]};
+  width: ${(props) => (props.fullWidth ? "100%" : "345px")};
+  padding: ${(props) => (props.sizeVariant === "small" ? "12px" : "12px 14px")};
   background: ${(props) =>
     props.theme.input.background[props.variant ?? "default"].default};
   border-radius: 10px;
@@ -242,7 +236,7 @@ export const InputV2Element = styled.input<SharedPropsV2>`
   background-color: transparent;
   color: ${(props) => props.theme.primaryTextv2};
 
-  font-size: ${(props) => (props.size === "small" ? "16px" : "18px")};
+  font-size: ${(props) => (props.sizeVariant === "small" ? "16px" : "18px")};
   font-weight: 500;
   width: 100%;
   transition: all 0.23s ease-in-out;

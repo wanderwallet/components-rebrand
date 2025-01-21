@@ -1,11 +1,11 @@
 import { CSSProperties, HTMLProps, ReactNode } from "react";
 import { InputStatus } from "../hooks";
-export declare function Input({ label, fullWidth, size, status, disabled, variant, iconLeft, iconRight, errorMessage, special, inputContainerStyle, labelStyle, ...props }: SharedPropsV2 & InputV2Props & HTMLProps<HTMLInputElement>): JSX.Element;
+export declare function Input({ label, fullWidth, sizeVariant, status, disabled, variant, iconLeft, iconRight, errorMessage, special, inputContainerStyle, labelStyle, ...props }: SharedPropsV2 & InputV2Props & HTMLProps<HTMLInputElement>): JSX.Element;
 type InputSize = "small" | "normal";
 type InputVariant = "default" | "search" | "dropdown";
 export interface SharedPropsV2 {
     fullWidth?: boolean;
-    size?: InputSize;
+    sizeVariant?: InputSize;
     variant?: InputVariant;
     special?: boolean;
     status?: InputStatus;
@@ -20,7 +20,6 @@ export interface InputV2Props {
     label?: ReactNode;
     errorMessage?: string;
 }
-export declare const InputContainer: import("styled-components").StyledComponent<"div", import("styled-components").DefaultTheme, SharedPropsV2, never>;
 export declare const InputV2Wrapper: import("styled-components").StyledComponent<"div", import("styled-components").DefaultTheme, SharedPropsV2, never>;
 export declare const LabelV2: import("styled-components").StyledComponent<"p", import("styled-components").DefaultTheme, {}, never>;
 export declare const ErrorMsg: import("styled-components").StyledComponent<"p", import("styled-components").DefaultTheme, {}, never>;

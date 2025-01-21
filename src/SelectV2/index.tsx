@@ -22,7 +22,7 @@ export function SelectV2({
       {label && <LabelV2>{label}</LabelV2>}
       <InputV2Wrapper
         fullWidth={fullWidth}
-        size={"small"}
+        sizeVariant={"small"}
         status={status ?? "default"}
       >
         <SelectElement {...selectPropsV2}>{children}</SelectElement>

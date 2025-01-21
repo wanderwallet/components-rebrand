@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Input> = (args) => {
 };
 
 const defaultArgs: ComponentProps<typeof Input> = {
-  size: "normal" as never,
+  sizeVariant: "normal",
   variant: "default",
   fullWidth: false,
   status: "default",
@@ -28,4 +28,4 @@ export const Normal = Template.bind({});
 Normal.args = { ...defaultArgs };
 
 export const Small = Template.bind({});
-Small.args = { ...defaultArgs, size: "small" as never };
+Small.args = { ...defaultArgs, sizeVariant: "small" };
