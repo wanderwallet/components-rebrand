@@ -205,7 +205,6 @@ Check the top-level render call using <`+S+">.")}return b}}function Sa(d,b){{if(
   margin: 0;
   padding-top: 8px;
 `,to=P.input`
-  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex: 1;

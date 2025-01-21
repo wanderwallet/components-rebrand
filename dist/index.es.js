@@ -1157,7 +1157,6 @@ const Ui = A.div`
   margin: 0;
   padding-top: 8px;
 `, Dl = A.input`
-  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex: 1;

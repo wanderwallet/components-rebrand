@@ -227,7 +227,6 @@ export const ErrorMsg = styled.p`
 `;
 
 export const InputV2Element = styled.input<SharedPropsV2>`
-  height: 100%;
   box-sizing: border-box;
   display: flex;
   flex: 1;
