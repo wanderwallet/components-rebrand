@@ -84,8 +84,6 @@ export function Input({
 
   const rightInputIcon = () => {
     if (iconRight) return iconRight;
-    if (variant === "dropdown")
-      return <Icon as={ChevronDown} disabled={disabled} />;
     if (type === "password")
       return (
         <Icon
@@ -93,8 +91,10 @@ export function Input({
           onClick={() => setShowPassword(!showPassword)}
         />
       );
+    if (variant === "dropdown")
+      return <Icon as={ChevronDown} disabled={disabled} />;
     if (props.value && isFocused)
-      return <Icon as={XCircle} onClick={clearInput} disabled={disabled} />;
+      return <ClearIcon onClick={clearInput} height={20} width={20} />;
     if (status === "error") {
       return <AlertCircle height={20} width={20} color={"#D22B1F"} />;
     }
@@ -301,3 +301,33 @@ const Icon = styled(XCircle)<{ disabled?: boolean }>`
   color: ${({ theme, disabled }) =>
     disabled ? theme.tertiaryText : theme.secondaryText};
 `;
+
+interface ClearIconProps {
+  onClick?: (event: React.MouseEvent<SVGElement>) => void;
+  width?: number;
+  height?: number;
+  color?: string;
+}
+
+const ClearIcon = ({
+  onClick,
+  width = 20,
+  height = 20,
+  color = "#838383"
+}: ClearIconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 16 16"
+    fill="none"
+    onClick={onClick}
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8.00008 0.666656C3.94999 0.666656 0.666748 3.9499 0.666748 7.99999C0.666748 12.0501 3.94999 15.3333 8.00008 15.3333C12.0502 15.3333 15.3334 12.0501 15.3334 7.99999C15.3334 3.9499 12.0502 0.666656 8.00008 0.666656ZM10.4715 5.52859C10.7318 5.78893 10.7318 6.21105 10.4715 6.47139L8.94289 7.99999L10.4715 9.52859C10.7318 9.78893 10.7318 10.211 10.4715 10.4714C10.2111 10.7317 9.78903 10.7317 9.52868 10.4714L8.00008 8.9428L6.47149 10.4714C6.21114 10.7317 5.78903 10.7317 5.52868 10.4714C5.26833 10.211 5.26833 9.78893 5.52868 9.52859L7.05727 7.99999L5.52868 6.47139C5.26833 6.21105 5.26833 5.78893 5.52868 5.52859C5.78903 5.26824 6.21114 5.26824 6.47149 5.52859L8.00008 7.05718L9.52868 5.52859C9.78903 5.26824 10.2111 5.26824 10.4715 5.52859Z"
+      fill={color}
+    />
+  </svg>
+);
