@@ -1,4 +1,4 @@
-export type Position = "top" | "topStart" | "topEnd" | "left" | "leftStart" | "leftEnd" | "bottom" | "bottomStart" | "bottomEnd" | "right" | "rightStart" | "rightEnd";
+export type Position = "top" | "topStart" | "topEnd" | "left" | "bottom" | "bottomStart" | "bottomEnd" | "right";
 export interface TooltipPosition {
     top?: string;
     left?: string;

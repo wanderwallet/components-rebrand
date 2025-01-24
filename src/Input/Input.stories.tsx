@@ -29,3 +29,12 @@ Normal.args = { ...defaultArgs };
 
 export const Small = Template.bind({});
 Small.args = { ...defaultArgs, sizeVariant: "small" };
+
+export const Password = Template.bind({});
+Password.args = { ...defaultArgs, type: "password" };
+
+export const Search = Template.bind({});
+Search.args = { ...defaultArgs, variant: "search" };
+
+export const Dropdown = Template.bind({});
+Dropdown.args = { ...defaultArgs, variant: "dropdown" };

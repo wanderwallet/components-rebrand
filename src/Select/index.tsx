@@ -1,51 +1,51 @@
-import { IconWrapperV2, InputV2Wrapper, LabelV2 } from "../Input";
+import { IconWrapper, InputWrapper, Label } from "../Input";
 import { HTMLProps, PropsWithChildren, ReactNode, useMemo } from "react";
 import { ChevronDownIcon } from "@iconicicons/react";
 import styled from "styled-components";
 import { InputStatus } from "../hooks";
 
-export function SelectV2({
+export function Select({
   children,
   label,
   fullWidth,
   small,
   status = "default",
   ...props
-}: PropsWithChildren<SelectV2Props & HTMLProps<HTMLSelectElement>>) {
-  const selectPropsV2 = useMemo<any>(
+}: PropsWithChildren<SelectProps & HTMLProps<HTMLSelectElement>>) {
+  const selectProps = useMemo<any>(
     () => ({ fullWidth, small, status, ...props }),
     [fullWidth, small, status, props]
   );
 
   return (
     <>
-      {label && <LabelV2>{label}</LabelV2>}
-      <InputV2Wrapper
+      {label && <Label>{label}</Label>}
+      <InputWrapper
         fullWidth={fullWidth}
         sizeVariant={"small"}
         status={status ?? "default"}
       >
-        <SelectElement {...selectPropsV2}>{children}</SelectElement>
-        <IconWrapperV2 position="right">
+        <SelectElement {...selectProps}>{children}</SelectElement>
+        <IconWrapper position="right">
           <ChevronDownIcon />
-        </IconWrapperV2>
-      </InputV2Wrapper>
+        </IconWrapper>
+      </InputWrapper>
     </>
   );
 }
 
-interface SelectV2Props {
+interface SelectProps {
   fullWidth?: boolean;
   small?: boolean;
   label?: ReactNode;
   status?: InputStatus;
 }
 
-const SelectElement = styled.select<SelectV2Props>`
+const SelectElement = styled.select<SelectProps>`
   outline: none;
   border: none;
   background-color: transparent;
-  color: ${(props) => props.theme.primaryTextv2};
+  color: ${(props) => props.theme.primaryText};
 
   font-size: 16px;
   font-weight: 500;

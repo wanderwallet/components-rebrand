@@ -1,20 +1,20 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SelectV2 } from "./index";
+import { Select } from "./index";
 import { ComponentProps } from "react";
 
 export default {
-  title: "SelectV2",
-  component: SelectV2
-} as ComponentMeta<typeof SelectV2>;
+  title: "Select",
+  component: Select
+} as ComponentMeta<typeof Select>;
 
-const Template: ComponentStory<typeof SelectV2> = (args) => (
-  <SelectV2 {...args}>
+const Template: ComponentStory<typeof Select> = (args) => (
+  <Select {...args}>
     <option value="test">Test option</option>
     <option value="second">Second option</option>
-  </SelectV2>
+  </Select>
 );
-const defaultArgs: ComponentProps<typeof SelectV2> = {
+const defaultArgs: ComponentProps<typeof Select> = {
   small: false,
   status: "default",
   fullWidth: false,

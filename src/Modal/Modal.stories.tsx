@@ -3,7 +3,7 @@ import { Spacer } from "../Spacer";
 import { Button } from "../Button";
 import { useModal } from "../hooks";
 
-import { Modal, ModalButton } from "./index";
+import { Modal } from ".";
 
 export default {
   title: "Modal",
@@ -11,18 +11,8 @@ export default {
 } as ComponentMeta<typeof Modal>;
 
 export const Basic: ComponentStory<typeof Modal> = (args) => (
-  <Modal
-    {...args}
-    open={true}
-    setOpen={() => {}}
-    actions={
-      <>
-        <ModalButton>Ok</ModalButton>
-        <ModalButton>Cancel</ModalButton>
-      </>
-    }
-  >
-    <p>This is a test</p>
+  <Modal {...args} open={true} setOpen={() => {}}>
+    <p>Pop up notification text goes here</p>
     <Spacer y={200} />
   </Modal>
 );
@@ -37,11 +27,14 @@ export const Demo = () => {
         {...modal.bindings}
         actions={
           <>
-            <ModalButton onClick={() => modal.setOpen(false)}>Ok</ModalButton>
+            <Button variant="secondary" onClick={() => modal.setOpen(false)}>
+              No
+            </Button>
+            <Button onClick={() => modal.setOpen(false)}>Yes</Button>
           </>
         }
       >
-        <p>This is a test modal demo</p>
+        <p>Pop up notification text goes here</p>
       </Modal>
     </>
   );
