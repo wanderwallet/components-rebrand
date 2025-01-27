@@ -27,4 +27,7 @@ export declare const InputElement: import("styled-components").StyledComponent<"
 export declare const IconWrapper: import("styled-components").StyledComponent<"div", import("styled-components").DefaultTheme, {
     position: "left" | "right";
 }, never>;
+export declare const Icon: import("styled-components").StyledComponent<(props: import("react").SVGProps<SVGSVGElement>) => React.JSX.Element, import("styled-components").DefaultTheme, {
+    disabled?: boolean | undefined;
+}, never>;
 export {};

@@ -1,8 +1,8 @@
-import { IconWrapper, InputWrapper, Label } from "../Input";
+import { Icon, IconWrapper, InputWrapper, Label } from "../Input";
 import { HTMLProps, PropsWithChildren, ReactNode, useMemo } from "react";
-import { ChevronDownIcon } from "@iconicicons/react";
 import styled from "styled-components";
 import { InputStatus } from "../hooks";
+import { ChevronDown } from "@untitled-ui/icons-react";
 
 export function Select({
   children,
@@ -27,7 +27,7 @@ export function Select({
       >
         <SelectElement {...selectProps}>{children}</SelectElement>
         <IconWrapper position="right">
-          <ChevronDownIcon />
+          <Icon as={ChevronDown} />
         </IconWrapper>
       </InputWrapper>
     </>
@@ -49,7 +49,7 @@ const SelectElement = styled.select<SelectProps>`
 
   font-size: 16px;
   font-weight: 500;
-  padding: ${(props) => (props.small ? "8.5px 15px" : "13.5px 15px")};
+  padding: ${(props) => (props.small ? "12px" : "12px 14px")};
   line-height: 22px;
   width: 100%;
   cursor: pointer;

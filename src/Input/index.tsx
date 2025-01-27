@@ -296,7 +296,7 @@ const SearchIcon = styled(SearchSm)<{ disabled?: boolean }>`
     ]};
 `;
 
-const Icon = styled(XCircle)<{ disabled?: boolean }>`
+export const Icon = styled(XCircle)<{ disabled?: boolean }>`
   height: 20px;
   width: 20px;
   cursor: pointer;
