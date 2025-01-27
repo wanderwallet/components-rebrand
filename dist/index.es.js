@@ -7562,6 +7562,7 @@ const en = ".35rem", nm = A.div`
   delete: "#F58080",
   secondaryDelete: "#F58080",
   surfaceDefault: "#FFF",
+  surfaceSecondaryPopup: "#FFFFFF",
   surfaceSecondary: "#F2F2F7",
   surfaceTertiary: "#f2f2f7",
   borderDefault: "#D6D6DD",
@@ -7651,6 +7652,7 @@ const en = ".35rem", nm = A.div`
   delete: "#8C1A1A",
   secondaryDelete: "#C51A1A",
   surfaceDefault: "#121212",
+  surfaceSecondaryPopup: "#1B1B1B",
   surfaceSecondary: "#242426",
   surfaceTertiary: "#2C2C2E",
   borderDefault: "#333",
@@ -7989,19 +7991,19 @@ const gm = A(gn.div).attrs({
   overflow-y: auto;
   padding: 2rem 0;
 `, ym = A.div`
-  background-color: ${(e) => e.theme.displayTheme === "light" ? e.theme.backgroundv2 : e.theme.backgroundSecondary};
-  outline: 1px solid #7866d3;
+  background-color: ${(e) => e.theme.surfaceSecondaryPopup};
+  border: 1px solid ${(e) => e.theme.borderDefault};
   border-radius: 10px;
   width: 300px;
   margin: auto;
-  padding: 24px 30px;
+  padding: 32px;
   box-sizing: border-box;
   gap: 16px;
 `, vm = A.div`
   font-size: 18px;
   font-weight: 600;
   text-align: center;
-  color: ${(e) => e.theme.primaryTextv2};
+  color: ${(e) => e.theme.primaryText};
   line-height: 25px;
   align-self: stretch;
 `, bm = A.div`

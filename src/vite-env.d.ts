@@ -63,6 +63,7 @@ declare module "styled-components" {
     };
     surfaceDefault: string;
     surfaceSecondary: string;
+    surfaceSecondaryPopup: string;
     surfaceTertiary: string;
     borderDefault: string;
     borderSecondary: string;

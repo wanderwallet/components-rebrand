@@ -62,15 +62,12 @@ const ModalWrapper = styled(motion.div).attrs({
 `;
 
 const ModalCard = styled.div`
-  background-color: ${(props) =>
-    props.theme.displayTheme === "light"
-      ? props.theme.backgroundv2
-      : props.theme.backgroundSecondary};
-  outline: 1px solid #7866d3;
+  background-color: ${(props) => props.theme.surfaceSecondaryPopup};
+  border: 1px solid ${(props) => props.theme.borderDefault};
   border-radius: 10px;
   width: 300px;
   margin: auto;
-  padding: 24px 30px;
+  padding: 32px;
   box-sizing: border-box;
   gap: 16px;
 `;
@@ -79,7 +76,7 @@ const ModalContent = styled.div`
   font-size: 18px;
   font-weight: 600;
   text-align: center;
-  color: ${(props) => props.theme.primaryTextv2};
+  color: ${(props) => props.theme.primaryText};
   line-height: 25px;
   align-self: stretch;
 `;
