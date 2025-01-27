@@ -1,5 +1,5 @@
 import type { DragControls } from "framer-motion";
-import { CSSProperties, HTMLProps, ReactNode } from "react";
+import { CSSProperties, HTMLProps, ReactNode, useMemo } from "react";
 import ReorderIcon from "../ReorderIcon";
 import styled from "styled-components";
 import Squircle from "../Squircle";
@@ -11,6 +11,7 @@ export function ListItem({
   small = false,
   active,
   height,
+  padding = 8,
   title,
   titleStyle,
   subtitle,
@@ -27,8 +28,20 @@ export function ListItem({
   hideSquircle = false,
   ...props
 }: Props & HTMLProps<HTMLDivElement>) {
+  const memoizedHeight = useMemo(() => {
+    if (height) return height;
+    if (!hideSquircle && squircleSize) return squircleSize + 2 * (padding ?? 8);
+    if (small) return 36;
+    return 48;
+  }, [height, small, squircleSize, hideSquircle, padding]);
+
   return (
-    <Wrapper small={small} active={active} height={height} {...(props as any)}>
+    <Wrapper
+      small={small}
+      active={active}
+      height={memoizedHeight}
+      {...(props as any)}
+    >
       <ContentWrapper>
         {!hideSquircle || img ? (
           <IconWrapper small={small} img={img} squircleSize={squircleSize}>
@@ -81,8 +94,7 @@ const Wrapper = styled.div<{
   overflow: hidden;
   cursor: pointer;
   padding: 8px;
-  height: ${(props) =>
-    props.height ? `${props.height}px` : props.small ? "36px" : "48px"};
+  height: ${(props) => props.height};
   box-sizing: border-box;
   transition: all 0.23s ease-in-out;
 
@@ -191,4 +203,5 @@ interface Props {
   squircleSize?: number;
   hideSquircle?: boolean;
   height?: number | string;
+  padding?: number;
 }
