@@ -25,6 +25,7 @@ export const Demo = () => {
       <Button onClick={() => modal.setOpen(true)}>Show modal</Button>
       <Modal
         {...modal.bindings}
+        showCloseIcon={true}
         actions={
           <>
             <Button variant="secondary" onClick={() => modal.setOpen(false)}>

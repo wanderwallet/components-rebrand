@@ -2,19 +2,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import { PropsWithChildren, ReactNode } from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
+import { XClose } from "@untitled-ui/icons-react";
 
 export function Modal({
   children,
   open,
   setOpen,
   actions,
-  root
+  root,
+  showCloseIcon = false
 }: PropsWithChildren<ModalProps>) {
   return ReactDOM.createPortal(
     <AnimatePresence>
       {open && (
         <ModalWrapper onClick={() => setOpen(false)}>
           <ModalCard onClick={(e) => e.stopPropagation()}>
+            {showCloseIcon && <ModalCloseIcon onClick={() => setOpen(false)} />}
             <ModalContent>{children}</ModalContent>
             {actions && <ModalActions>{actions}</ModalActions>}
           </ModalCard>
@@ -62,6 +65,7 @@ const ModalWrapper = styled(motion.div).attrs({
 `;
 
 const ModalCard = styled.div`
+  position: relative;
   background-color: ${(props) => props.theme.surfaceSecondaryPopup};
   border: 1px solid ${(props) => props.theme.borderDefault};
   border-radius: 10px;
@@ -89,9 +93,29 @@ const ModalActions = styled.div`
   gap: 10px;
 `;
 
+const ModalCloseIcon = styled(XClose)`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  color: ${(props) => props.theme.tertiaryText};
+
+  &:hover {
+    color: ${(props) => props.theme.secondaryText};
+  }
+
+  &:active {
+    color: ${(props) => props.theme.secondaryText};
+    transform: scale(0.9);
+  }
+`;
+
 interface ModalProps {
   open: boolean;
   setOpen: (open: boolean) => any;
   actions?: ReactNode;
   root?: Element | DocumentFragment;
+  showCloseIcon?: boolean;
 }
