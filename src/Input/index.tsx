@@ -29,6 +29,7 @@ export function Input({
   inputContainerStyle,
   labelStyle,
   type = "text",
+  onBlur,
   ...props
 }: SharedProps & InputProps & HTMLProps<HTMLInputElement>) {
   const [isFocused, setIsFocused] = useState(false);
@@ -65,12 +66,13 @@ export function Input({
     ]
   );
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const timeout = setTimeout(() => {
       setIsFocused(false);
       clearTimeout(timeout);
     }, 200);
     setBlurTimeout(timeout);
+    onBlur?.(e);
   };
 
   const clearInput = (e: React.MouseEvent) => {
