@@ -2939,6 +2939,7 @@ function km({
       small: t,
       active: n,
       height: C,
+      padding: o,
       ...v,
       children: [
         /* @__PURE__ */ j(mu, { children: [
@@ -2965,7 +2966,7 @@ const pu = A.div`
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  padding: 8px;
+  padding: ${(e) => e.padding}px;
   height: ${(e) => e.height};
   box-sizing: border-box;
   transition: all 0.23s ease-in-out;

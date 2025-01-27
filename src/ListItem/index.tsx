@@ -40,6 +40,7 @@ export function ListItem({
       small={small}
       active={active}
       height={memoizedHeight}
+      padding={padding}
       {...(props as any)}
     >
       <ContentWrapper>
@@ -86,6 +87,7 @@ const Wrapper = styled.div<{
   active: boolean;
   small: boolean;
   height?: number | string;
+  padding?: number;
 }>`
   display: flex;
   align-items: center;
@@ -93,7 +95,7 @@ const Wrapper = styled.div<{
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  padding: 8px;
+  padding: ${(props) => props.padding}px;
   height: ${(props) => props.height};
   box-sizing: border-box;
   transition: all 0.23s ease-in-out;

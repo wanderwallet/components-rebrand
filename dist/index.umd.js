@@ -269,14 +269,14 @@ Check the top-level render call using <`+A+">.")}return x}}function Sa(d,x){{if(
   left: 0;
   width: 100%;
   height: 100%;
-`;function Al({children:e,small:t=!1,active:n,height:r,padding:o=8,title:s,titleStyle:i,subtitle:a,subtitleStyle:c,subtitleExtra:u,subtitleExtraStyle:l,img:f,icon:h,leftIcon:p,rightIcon:m,dragControls:g,showArrow:T=!1,squircleSize:w=t?32:48,hideSquircle:C=!1,...b}){const S=v.useMemo(()=>r||(!C&&w?w+2*(o??8):t?36:48),[r,t,w,C,o]);return $(Pl,{small:t,active:n,height:S,...b,children:[$(kl,{children:[!C||f?E(_o,{small:t,img:f,squircleSize:w,children:E(Fn,{children:p||h||e})}):p||h||e,$("div",{children:[E(Vl,{small:t,style:i,children:s}),a&&E(Dl,{small:t,style:c,children:a})]})]}),$(Ll,{children:[u&&E(Ol,{small:t,style:l,children:u}),m&&(C?m:E(_o,{small:t,squircleSize:w,children:E(Fn,{children:m})})),!g&&T&&E(Fl,{}),g&&E(ic,{dragControls:g})]})]})}const Pl=P.div`
+`;function Al({children:e,small:t=!1,active:n,height:r,padding:o=8,title:s,titleStyle:i,subtitle:a,subtitleStyle:c,subtitleExtra:u,subtitleExtraStyle:l,img:f,icon:h,leftIcon:p,rightIcon:m,dragControls:g,showArrow:T=!1,squircleSize:w=t?32:48,hideSquircle:C=!1,...b}){const S=v.useMemo(()=>r||(!C&&w?w+2*(o??8):t?36:48),[r,t,w,C,o]);return $(Pl,{small:t,active:n,height:S,padding:o,...b,children:[$(kl,{children:[!C||f?E(_o,{small:t,img:f,squircleSize:w,children:E(Fn,{children:p||h||e})}):p||h||e,$("div",{children:[E(Vl,{small:t,style:i,children:s}),a&&E(Dl,{small:t,style:c,children:a})]})]}),$(Ll,{children:[u&&E(Ol,{small:t,style:l,children:u}),m&&(C?m:E(_o,{small:t,squircleSize:w,children:E(Fn,{children:m})})),!g&&T&&E(Fl,{}),g&&E(ic,{dragControls:g})]})]})}const Pl=P.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  padding: 8px;
+  padding: ${e=>e.padding}px;
   height: ${e=>e.height};
   box-sizing: border-box;
   transition: all 0.23s ease-in-out;
