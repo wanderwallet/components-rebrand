@@ -13,7 +13,13 @@ import { InputStatus } from "../hooks";
 const heights = {
   small: "42px",
   normal: "52px"
-} as const;
+} as Record<InputSize, string>;
+
+const fontSizes = {
+  small: "16px",
+  normal: "18px",
+  large: "40px"
+} as Record<InputSize, string>;
 
 export function Input({
   label,
@@ -30,6 +36,7 @@ export function Input({
   labelStyle,
   type = "text",
   onBlur,
+  stacked,
   ...props
 }: SharedProps & InputProps & HTMLProps<HTMLInputElement>) {
   const [isFocused, setIsFocused] = useState(false);
@@ -124,27 +131,30 @@ export function Input({
         variant={variant}
         special={special}
         style={inputContainerStyle}
+        stacked={stacked}
       >
         {LeftIconComponent && (
           <IconWrapper position="left">{LeftIconComponent}</IconWrapper>
         )}
-        <InputElement
-          {...inputProps}
-          type={inputType}
-          disabled={disabled}
-          onFocus={() => setIsFocused(true)}
-          onBlur={handleBlur}
-        />
-        {RightIconComponent && (
-          <IconWrapper position="right">{RightIconComponent}</IconWrapper>
-        )}
+        <BottomRow stacked={stacked}>
+          <InputElement
+            {...inputProps}
+            type={inputType}
+            disabled={disabled}
+            onFocus={() => setIsFocused(true)}
+            onBlur={handleBlur}
+          />
+          {RightIconComponent && (
+            <IconWrapper position="right">{RightIconComponent}</IconWrapper>
+          )}
+        </BottomRow>
       </InputWrapper>
       {status === "error" && <ErrorMsg>{errorMessage}</ErrorMsg>}
     </>
   );
 }
 
-type InputSize = "small" | "normal";
+type InputSize = "small" | "normal" | "large";
 type InputVariant = "default" | "search" | "dropdown";
 
 export interface SharedProps {
@@ -155,6 +165,7 @@ export interface SharedProps {
   status?: InputStatus;
   disabled?: boolean;
   hasRightIcon?: boolean;
+  stacked?: boolean;
   inputContainerStyle?: CSSProperties;
   labelStyle?: CSSProperties;
 }
@@ -169,6 +180,7 @@ export interface InputProps {
 export const InputWrapper = styled.div<SharedProps>`
   position: relative;
   display: flex;
+  flex-direction: ${props => props.stacked ? 'column' : 'row'};
   gap: 4px;
   align-items: center;
   height: ${(props) => heights[props.sizeVariant ?? "normal"]};
@@ -261,7 +273,7 @@ export const InputElement = styled.input<SharedProps>`
   background-color: transparent;
   color: ${(props) => props.theme.primaryText};
 
-  font-size: ${(props) => (props.sizeVariant === "small" ? "16px" : "18px")};
+  font-size: ${(props) => fontSizes[props.sizeVariant ?? "normal"]};
   font-weight: 500;
   width: 100%;
   transition: all 0.23s ease-in-out;
@@ -333,3 +345,11 @@ const ClearIcon = ({
     />
   </svg>
 );
+
+const BottomRow = styled.div<{ stacked?: boolean }>`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  width: 100%;
+  flex: ${props => props.stacked ? '0' : '1'};
+`;
