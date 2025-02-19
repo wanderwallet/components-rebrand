@@ -7500,6 +7500,7 @@ const en = ".35rem", om = A.div`
   font-size: 1.25rem;
   width: 1em;
   height: 1em;
+  flex-shrink: 0;
   color: rgb(
     ${(e) => e.type === "info" ? e.theme.theme : Va[e.type]}
   );

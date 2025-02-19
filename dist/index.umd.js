@@ -388,6 +388,7 @@ Check the top-level render call using <`+A+">.")}return x}}function Sa(d,x){{if(
   font-size: 1.25rem;
   width: 1em;
   height: 1em;
+  flex-shrink: 0;
   color: rgb(
     ${e=>e.type==="info"?e.theme.theme:aa[e.type]}
   );

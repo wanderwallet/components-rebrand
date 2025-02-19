@@ -170,6 +170,7 @@ const Icon = styled(InformationIcon)<{ type: ToastType }>`
   font-size: 1.25rem;
   width: 1em;
   height: 1em;
+  flex-shrink: 0;
   color: rgb(
     ${(props) =>
       props.type === "info" ? props.theme.theme : resultColors[props.type]}
