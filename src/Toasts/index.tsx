@@ -1,10 +1,8 @@
-
 import { AnimatePresence } from "framer-motion";
 import { Dispatch, SetStateAction } from "react";
 import { ToastDataWithID, useToasts } from "../Toast/utils";
 import styled from "styled-components";
 import { Toast } from "../Toast";
-
 
 interface ToastsProps {
   setToasts: Dispatch<SetStateAction<ToastDataWithID[]>>;
@@ -21,8 +19,8 @@ export const Toasts = ({ setToasts }: ToastsProps) => {
             action={toast.action}
             duration={toast.duration}
             type={toast.type}
-            close={(id) => {
-              setToasts((val) => val.filter((t) => t.id !== id));
+            close={() => {
+              setToasts((val) => val.filter((t) => t.id !== toast.id));
             }}
             addedAt={toast.addedAt}
             key={i}
@@ -47,4 +45,3 @@ const ToastsWrapper = styled.div`
   width: 420px;
   z-index: 10000;
 `;
-

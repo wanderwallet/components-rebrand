@@ -427,7 +427,7 @@ Check the top-level render call using <`+A+">.")}return x}}function Sa(d,x){{if(
   height: 1em;
   color: #fff;
   transform: translate(-50%, -50%);
-`,wp=({setToasts:e})=>{const{toasts:t}=oa();return E(Cp,{children:E(an,{children:t.map((n,r)=>E(hp,{action:n.action,duration:n.duration,type:n.type,close:o=>{e(s=>s.filter(i=>i.id!==o))},addedAt:n.addedAt,children:n.content},r))})})},Cp=P.div`
+`,wp=({setToasts:e})=>{const{toasts:t}=oa();return E(Cp,{children:E(an,{children:t.map((n,r)=>E(hp,{action:n.action,duration:n.duration,type:n.type,close:()=>{e(o=>o.filter(s=>s.id!==n.id))},addedAt:n.addedAt,children:n.content},r))})})},Cp=P.div`
   display: flex;
   position: fixed;
   flex-direction: column;

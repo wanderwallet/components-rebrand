@@ -7547,8 +7547,8 @@ const en = ".35rem", om = A.div`
       action: n.action,
       duration: n.duration,
       type: n.type,
-      close: (o) => {
-        e((s) => s.filter((i) => i.id !== o));
+      close: () => {
+        e((o) => o.filter((s) => s.id !== n.id));
       },
       addedAt: n.addedAt,
       children: n.content
