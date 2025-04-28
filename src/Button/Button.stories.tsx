@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button, ButtonProps } from "./index";
-import { ArrowUpRightIcon } from "@iconicicons/react";
+import { Fingerprint04 } from "@untitled-ui/icons-react";
 
 export default {
   title: "Button",
@@ -8,17 +8,13 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => (
-  <Button {...args}>
-    Test
-    {args.icon && (
-      <ArrowUpRightIcon style={{ width: "22px", height: "22px" }} />
-    )}
-  </Button>
+  <Button {...args}>Test</Button>
 );
 const defaultArgs: ButtonProps = {
   variant: "primary",
   fullWidth: false,
-  icon: false,
+  icon: <Fingerprint04 />,
+  iconPosition: "left",
   disabled: false
 };
 

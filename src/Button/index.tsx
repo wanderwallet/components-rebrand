@@ -4,6 +4,12 @@ import { Loading } from "../Loading";
 export const Button = styled.button.attrs<ButtonProps>((props) => ({
   children: props.loading ? (
     <Loading style={{ margin: ".18rem 0" }} />
+  ) : props.icon ? (
+    <>
+      {(!props.iconPosition || props.iconPosition === "left") && props.icon}
+      {props.children}
+      {props.iconPosition === "right" && props.icon}
+    </>
   ) : (
     props.children
   )
@@ -53,7 +59,7 @@ type IconPosition = "left" | "right";
 export interface ButtonProps {
   variant?: Variant;
   fullWidth?: boolean;
-  icon?: boolean;
+  icon?: React.ReactNode;
   iconPosition?: IconPosition;
   disabled?: boolean;
   loading?: boolean;
