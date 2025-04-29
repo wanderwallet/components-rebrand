@@ -1,5 +1,6 @@
 /// <reference types="react" />
 import { ToastAction, ToastType } from "./index";
+export type ToastPosition = "top" | "bottom";
 export interface ToastData {
     duration: number;
     content: React.ReactNode | ((props: {
@@ -10,6 +11,7 @@ export interface ToastData {
     showProgress?: boolean;
     progressColor?: string;
     showIcon?: boolean;
+    position?: ToastPosition;
 }
 export interface ToastDataWithID extends ToastData {
     id: string;

@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, useContext } from "react";
 import { ToastAction, ToastType } from "./index";
+
+export type ToastPosition = "top" | "bottom";
 
 export interface ToastData {
   duration: number;
@@ -11,6 +13,7 @@ export interface ToastData {
   showProgress?: boolean;
   progressColor?: string;
   showIcon?: boolean;
+  position?: ToastPosition;
 }
 
 export interface ToastDataWithID extends ToastData {

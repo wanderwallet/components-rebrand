@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 import { Button } from "../Button";
 import { Text } from "../Text";
 import { Toast } from "./index";
-import { useToasts } from "./utils";
+import { ToastPosition, useToasts } from "./utils";
 
 export default {
   title: "Toast",
@@ -62,7 +62,10 @@ export const Demo = () => {
           duration: 3000,
           showProgress: true,
           progressColor: "linear-gradient(47deg, #5842f8 5.41%, #6b57f9 96%)",
-          showIcon: false
+          showIcon: false,
+          position: ["top", "bottom"][
+            Math.floor(Math.random() * 2)
+          ] as ToastPosition
         })
       }
     >
