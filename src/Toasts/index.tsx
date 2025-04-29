@@ -23,6 +23,9 @@ export const Toasts = ({ setToasts }: ToastsProps) => {
               setToasts((val) => val.filter((t) => t.id !== toast.id));
             }}
             addedAt={toast.addedAt}
+            showProgress={toast.showProgress}
+            progressColor={toast.progressColor}
+            showIcon={toast.showIcon}
             key={i}
           >
             {toast.content}

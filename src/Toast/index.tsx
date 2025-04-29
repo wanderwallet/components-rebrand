@@ -1,13 +1,12 @@
 import {
   CheckCircleIcon,
-  CloseIcon,
   InformationIcon,
   TargetIcon
 } from "@iconicicons/react";
-import { PropsWithChildren, useEffect, useMemo, useState } from "react";
-import { DisplayTheme } from "../Provider";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import styled from "styled-components";
+import styled, { DefaultTheme, ThemeProps } from "styled-components";
+import { XClose } from "@untitled-ui/icons-react";
 
 export function Toast({
   children,
@@ -15,39 +14,54 @@ export function Toast({
   action,
   type = "info",
   close,
-  addedAt
+  addedAt,
+  showProgress = false,
+  progressColor,
+  showIcon = true
 }: PropsWithChildren<ToastProps>) {
   const [progress, setProgress] = useState<number>(100);
 
   // update progress based on the total duration
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (progress === 0) {
-        clearInterval(interval);
+    if (!showProgress) return;
+
+    const startTime = addedAt;
+    const endTime = startTime + duration;
+
+    const updateProgress = () => {
+      const now = new Date().getTime();
+      const remainingTime = Math.max(0, endTime - now);
+      const newProgress = (remainingTime / duration) * 100;
+
+      setProgress(newProgress);
+
+      if (remainingTime <= 0) {
         return;
       }
 
-      const time = new Date().getTime();
+      requestAnimationFrame(updateProgress);
+    };
 
-      setProgress(100 - ((time - addedAt) / duration) * 100);
-    }, duration / 100);
-
-    return () => clearInterval(interval);
-  }, [progress]);
+    updateProgress();
+    const animationFrame = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [addedAt, duration, showProgress]);
 
   return (
     <ToastWrapper>
       <ChildrenWithIcon>
-        <Icon
-          as={
-            type === "info"
-              ? InformationIcon
-              : type === "error"
-              ? TargetIcon
-              : CheckCircleIcon
-          }
-          type={type}
-        />
+        {showIcon && (
+          <Icon
+            as={
+              type === "info"
+                ? InformationIcon
+                : type === "error"
+                ? TargetIcon
+                : CheckCircleIcon
+            }
+            type={type}
+          />
+        )}
         <ChildrenWrapper>{children}</ChildrenWrapper>
       </ChildrenWithIcon>
       <Actions>
@@ -65,9 +79,9 @@ export function Toast({
           <XIcon />
         </CloseButton>
       </Actions>
-      {/*progress > 0 && (
-        <Progress type={type} progress={progress} />
-      )*/}
+      {showProgress && progress > 0 && (
+        <Progress type={type} progress={progress} color={progressColor} />
+      )}
     </ToastWrapper>
   );
 }
@@ -77,6 +91,9 @@ export interface ToastProps {
   action?: ToastAction;
   addedAt: number;
   type?: ToastType;
+  showProgress?: boolean;
+  progressColor?: string;
+  showIcon?: boolean;
   close: (...args: any[]) => any;
 }
 
@@ -87,7 +104,7 @@ export interface ToastAction {
   task: (...args: any[]) => any;
 }
 
-const progressHeight = ".2rem";
+const progressHeight = ".25rem";
 
 const ToastWrapper = styled(motion.div).attrs({
   initial: {
@@ -130,7 +147,7 @@ const ToastWrapper = styled(motion.div).attrs({
       : props.theme.cardBackground};
   border-radius: 8px;
   //padding: .5rem 1.1rem calc(.5rem + ${progressHeight});
-  padding: 0.5rem 1.1rem;
+  padding: 0.5rem 0.75rem;
   width: calc(100% - 2.2rem);
   overflow: hidden;
   border: ${(props) =>
@@ -141,21 +158,23 @@ const ToastWrapper = styled(motion.div).attrs({
 `;
 
 const resultColors = {
-  success: "20, 209, 16",
-  error: "255, 0, 0"
+  success: (props: ThemeProps<DefaultTheme>) => props.theme.success,
+  error: (props: ThemeProps<DefaultTheme>) => props.theme.fail,
+  info: (props: ThemeProps<DefaultTheme>) => props.theme.theme
 };
 
-const Progress = styled.div<{ type: ToastType; progress: number }>`
+const Progress = styled.div<{
+  type: ToastType;
+  progress: number;
+  color?: string;
+}>`
   position: absolute;
   bottom: 0;
-  right: 0;
+  left: 0;
   height: ${progressHeight};
   width: ${(props) => props.progress || "100"}%;
-  background-color: rgb(
-    ${(props) =>
-      props.type === "info" ? props.theme.theme : resultColors[props.type]}
-  );
-  transition: all 0.05s ease-in-out;
+  background: ${(props) => props.color || resultColors[props.type](props)};
+  will-change: width;
 `;
 
 const child_padding = ".35rem";
@@ -171,10 +190,7 @@ const Icon = styled(InformationIcon)<{ type: ToastType }>`
   width: 1em;
   height: 1em;
   flex-shrink: 0;
-  color: rgb(
-    ${(props) =>
-      props.type === "info" ? props.theme.theme : resultColors[props.type]}
-  );
+  color: ${(props) => resultColors[props.type](props)};
 `;
 
 const ChildrenWrapper = styled.div`
@@ -214,7 +230,7 @@ const CloseButton = styled(ActionButton)`
   height: calc(${child_padding} * 2 + ${action_button_font_size});
 `;
 
-const XIcon = styled(CloseIcon)`
+const XIcon = styled(XClose)`
   position: absolute;
   top: 50%;
   left: 50%;

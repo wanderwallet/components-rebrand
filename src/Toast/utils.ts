@@ -6,6 +6,9 @@ export interface ToastData {
   content: ReactNode;
   type?: ToastType;
   action?: ToastAction;
+  showProgress?: boolean;
+  progressColor?: string;
+  showIcon?: boolean;
 }
 
 export interface ToastDataWithID extends ToastData {

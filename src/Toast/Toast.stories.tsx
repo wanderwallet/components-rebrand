@@ -16,7 +16,8 @@ const Template: ComponentStory<typeof Toast> = (args) => (
 const defaultArgs: ComponentProps<typeof Toast> = {
   close: () => {},
   duration: 4000,
-  addedAt: new Date().getTime()
+  addedAt: new Date().getTime(),
+  showProgress: true
 };
 
 export const Info = Template.bind({});
@@ -54,7 +55,10 @@ export const Demo = () => {
         setToast({
           type: "info",
           content: "This is a toast",
-          duration: 3000
+          duration: 3000,
+          showProgress: true,
+          progressColor: "linear-gradient(47deg, #5842f8 5.41%, #6b57f9 96%)",
+          showIcon: false
         })
       }
     >
