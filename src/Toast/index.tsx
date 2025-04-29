@@ -3,10 +3,27 @@ import {
   InformationIcon,
   TargetIcon
 } from "@iconicicons/react";
-import { PropsWithChildren, useEffect, useState } from "react";
+import {
+  PropsWithChildren,
+  useEffect,
+  useState,
+  useCallback,
+  useRef
+} from "react";
 import { motion } from "framer-motion";
 import styled, { DefaultTheme, ThemeProps } from "styled-components";
 import { XClose } from "@untitled-ui/icons-react";
+
+const getIconComponent = (type: ToastType) => {
+  switch (type) {
+    case "info":
+      return InformationIcon;
+    case "error":
+      return TargetIcon;
+    default:
+      return CheckCircleIcon;
+  }
+};
 
 export function Toast({
   children,
@@ -20,60 +37,59 @@ export function Toast({
   showIcon = true
 }: PropsWithChildren<ToastProps>) {
   const [progress, setProgress] = useState<number>(100);
+  const progressRef = useRef<number>(100);
+  const lastUpdateRef = useRef<number>(Date.now());
 
-  // update progress based on the total duration
+  const handleActionClick = useCallback(async () => {
+    if (action) {
+      await action.task();
+      close();
+    }
+  }, [action, close]);
+
   useEffect(() => {
     if (!showProgress) return;
 
     const startTime = addedAt;
     const endTime = startTime + duration;
+    let animationFrameId: number;
+    lastUpdateRef.current = Date.now();
 
     const updateProgress = () => {
-      const now = new Date().getTime();
+      const now = Date.now();
       const remainingTime = Math.max(0, endTime - now);
-      const newProgress = (remainingTime / duration) * 100;
 
-      setProgress(newProgress);
-
-      if (remainingTime <= 0) {
-        return;
+      if (now - lastUpdateRef.current >= 16) {
+        const newProgress = (remainingTime / duration) * 100;
+        if (Math.abs(newProgress - progressRef.current) >= 1) {
+          setProgress(newProgress);
+          progressRef.current = newProgress;
+        }
+        lastUpdateRef.current = now;
       }
 
-      requestAnimationFrame(updateProgress);
+      if (remainingTime > 0) {
+        animationFrameId = requestAnimationFrame(updateProgress);
+      }
     };
 
     updateProgress();
-    const animationFrame = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(animationFrame);
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [addedAt, duration, showProgress]);
 
   return (
     <ToastWrapper>
       <ChildrenWithIcon>
-        {showIcon && (
-          <Icon
-            as={
-              type === "info"
-                ? InformationIcon
-                : type === "error"
-                ? TargetIcon
-                : CheckCircleIcon
-            }
-            type={type}
-          />
-        )}
+        {showIcon && <Icon as={getIconComponent(type)} type={type} />}
         <ChildrenWrapper>{children}</ChildrenWrapper>
       </ChildrenWithIcon>
       <Actions>
         {action && (
-          <ActionButton
-            onClick={async () => {
-              await action.task();
-              close();
-            }}
-          >
-            {action.name}
-          </ActionButton>
+          <ActionButton onClick={handleActionClick}>{action.name}</ActionButton>
         )}
         <CloseButton onClick={close}>
           <XIcon />

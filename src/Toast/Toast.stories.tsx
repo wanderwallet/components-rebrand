@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ComponentProps } from "react";
 import { Button } from "../Button";
-
+import { Text } from "../Text";
 import { Toast } from "./index";
 import { useToasts } from "./utils";
 
@@ -54,7 +54,11 @@ export const Demo = () => {
       onClick={() =>
         setToast({
           type: "info",
-          content: "This is a toast",
+          content: ({ close }) => (
+            <Text weight="medium" noMargin onClick={close}>
+              Take the tour
+            </Text>
+          ),
           duration: 3000,
           showProgress: true,
           progressColor: "linear-gradient(47deg, #5842f8 5.41%, #6b57f9 96%)",

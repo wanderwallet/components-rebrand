@@ -1,8 +1,10 @@
-import { ReactNode } from "react";
+/// <reference types="react" />
 import { ToastAction, ToastType } from "./index";
 export interface ToastData {
     duration: number;
-    content: ReactNode;
+    content: React.ReactNode | ((props: {
+        close: () => void;
+    }) => React.ReactNode);
     type?: ToastType;
     action?: ToastAction;
     showProgress?: boolean;
