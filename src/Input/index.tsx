@@ -180,7 +180,7 @@ export interface InputProps {
 export const InputWrapper = styled.div<SharedProps>`
   position: relative;
   display: flex;
-  flex-direction: ${props => props.stacked ? 'column' : 'row'};
+  flex-direction: ${(props) => (props.stacked ? "column" : "row")};
   gap: 4px;
   align-items: center;
   height: ${(props) => heights[props.sizeVariant ?? "normal"]};
@@ -299,6 +299,7 @@ export const IconWrapper = styled.div<{ position: "left" | "right" }>`
   font-weight: 500;
   color: #666;
   cursor: pointer;
+  display: flex;
 `;
 
 const SearchIcon = styled(SearchSm)<{ disabled?: boolean }>`
@@ -351,5 +352,5 @@ const BottomRow = styled.div<{ stacked?: boolean }>`
   gap: 4px;
   align-items: center;
   width: 100%;
-  flex: ${props => props.stacked ? '0' : '1'};
+  flex: ${(props) => (props.stacked ? "0" : "1")};
 `;
