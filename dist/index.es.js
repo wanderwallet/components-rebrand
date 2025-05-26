@@ -7113,35 +7113,42 @@ function $m({
           ] })
         ] }),
         v && /* @__PURE__ */ B(wt, { children: [
-          /* @__PURE__ */ B(Jp, { onClick: () => Y((oe) => !oe), children: [
-            /* @__PURE__ */ w($i, {}),
-            /* @__PURE__ */ B(
-              "div",
-              {
-                style: {
-                  display: "flex",
-                  gap: 4,
-                  alignItems: "center",
-                  justifyContent: "center"
-                },
-                children: [
-                  /* @__PURE__ */ w(
-                    Je,
-                    {
-                      style: { whiteSpace: "nowrap" },
-                      variant: "secondary",
-                      size: "xs",
-                      weight: "medium",
-                      noMargin: !0,
-                      children: $ ? x : T
-                    }
-                  ),
-                  /* @__PURE__ */ w(Zp, { as: $ ? Dc : on })
-                ]
-              }
-            ),
-            /* @__PURE__ */ w($i, {})
-          ] }),
+          /* @__PURE__ */ B(
+            Jp,
+            {
+              expanded: $,
+              onClick: () => Y((oe) => !oe),
+              children: [
+                /* @__PURE__ */ w($i, { active: n }),
+                /* @__PURE__ */ B(
+                  "div",
+                  {
+                    style: {
+                      display: "flex",
+                      gap: 4,
+                      alignItems: "center",
+                      justifyContent: "center"
+                    },
+                    children: [
+                      /* @__PURE__ */ w(
+                        Je,
+                        {
+                          style: { whiteSpace: "nowrap" },
+                          variant: "secondary",
+                          size: "xs",
+                          weight: "medium",
+                          noMargin: !0,
+                          children: $ ? x : T
+                        }
+                      ),
+                      /* @__PURE__ */ w(Zp, { as: $ ? Dc : on })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ w($i, { active: n })
+              ]
+            }
+          ),
           /* @__PURE__ */ w(
             Ke.div,
             {
@@ -7267,7 +7274,7 @@ const Up = P.div`
   width: 100%;
   gap: 0.5rem;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: ${(e) => `1rem 0 ${e.expanded ? "1rem" : "0"} 0`};
   cursor: pointer;
 
   transition: all 0.23s ease-in-out;
@@ -7288,7 +7295,7 @@ const Up = P.div`
 `, $i = P.div`
   width: 100%;
   height: ${({ height: e }) => e || 1}px;
-  background: ${({ theme: e }) => e.borderSecondary};
+  background: ${({ theme: e, active: t }) => t ? e.borderDefault : e.borderSecondary};
   margin: ${({ marginVertical: e }) => e || 0}px 0;
 `;
 function st(e) {

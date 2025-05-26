@@ -90,8 +90,11 @@ export function ListItem({
       </NonExpandableWrapper>
       {expandable && (
         <>
-          <AdvancedWrapper onClick={() => setExpanded((prev) => !prev)}>
-            <HorizontalLine />
+          <AdvancedWrapper
+            expanded={expanded}
+            onClick={() => setExpanded((prev) => !prev)}
+          >
+            <HorizontalLine active={active} />
             <div
               style={{
                 display: "flex",
@@ -111,7 +114,7 @@ export function ListItem({
               </Text>
               <Action as={expanded ? ChevronUp : ChevronDown} />
             </div>
-            <HorizontalLine />
+            <HorizontalLine active={active} />
           </AdvancedWrapper>
           <motion.div
             initial={false}
@@ -266,13 +269,13 @@ const RightWrapper = styled.div`
   gap: 8px;
 `;
 
-const AdvancedWrapper = styled.div`
+const AdvancedWrapper = styled.div<{ expanded: boolean }>`
   display: flex;
   justify-content: space-between;
   width: 100%;
   gap: 0.5rem;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: ${(props) => `1rem 0 ${props.expanded ? "1rem" : "0"} 0`};
   cursor: pointer;
 
   transition: all 0.23s ease-in-out;
@@ -295,12 +298,14 @@ const Action = styled(ChevronDown)`
 `;
 
 const HorizontalLine = styled.div<{
+  active?: boolean;
   height?: number;
   marginVertical?: number;
 }>`
   width: 100%;
   height: ${({ height }) => height || 1}px;
-  background: ${({ theme }) => theme.borderSecondary};
+  background: ${({ theme, active }) =>
+    active ? theme.borderDefault : theme.borderSecondary};
   margin: ${({ marginVertical }) => marginVertical || 0}px 0;
 `;
 
