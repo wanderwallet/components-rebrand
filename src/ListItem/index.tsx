@@ -32,7 +32,7 @@ export function ListItem({
   squircleSize = small ? 32 : 48,
   hideSquircle = false,
   ...props
-}: Props & HTMLProps<HTMLDivElement>) {
+}: Omit<Props & HTMLProps<HTMLDivElement>, "title"> & { title: ReactNode }) {
   const [expanded, setExpanded] = useState(false);
 
   const memoizedHeight = useMemo(() => {
@@ -57,17 +57,24 @@ export function ListItem({
               <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
             </IconWrapper>
           ) : (
-            leftIcon || icon || children
+            <div style={{ flexShrink: 0 }}>{leftIcon || icon || children}</div>
           )}
-          <div>
-            <ItemName small={small} style={titleStyle}>
-              {title}
-            </ItemName>
-            {subtitle && (
-              <ItemSubtitle small={small} style={subtitleStyle}>
-                {subtitle}
-              </ItemSubtitle>
+          <div style={{ width: "100%" }}>
+            {typeof title === "string" ? (
+              <ItemName small={small} style={titleStyle as any}>
+                {title}
+              </ItemName>
+            ) : (
+              title
             )}
+            {subtitle &&
+              (typeof subtitle === "string" ? (
+                <ItemSubtitle small={small} style={subtitleStyle as any}>
+                  {subtitle}
+                </ItemSubtitle>
+              ) : (
+                subtitle
+              ))}
           </div>
         </ContentWrapper>
         <RightWrapper>
@@ -193,6 +200,7 @@ const ExpandableWrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 12px;
 `;
 

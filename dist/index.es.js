@@ -7099,10 +7099,10 @@ function $m({
       children: [
         /* @__PURE__ */ B(zp, { height: N, children: [
           /* @__PURE__ */ B(Hp, { children: [
-            !D || d ? /* @__PURE__ */ w(Ii, { small: t, img: d, squircleSize: k, children: /* @__PURE__ */ w(ji, { children: p || h || e }) }) : p || h || e,
-            /* @__PURE__ */ B("div", { children: [
-              /* @__PURE__ */ w(qp, { small: t, style: i, children: s }),
-              a && /* @__PURE__ */ w(Gp, { small: t, style: c, children: a })
+            !D || d ? /* @__PURE__ */ w(Ii, { small: t, img: d, squircleSize: k, children: /* @__PURE__ */ w(ji, { children: p || h || e }) }) : /* @__PURE__ */ w("div", { style: { flexShrink: 0 }, children: p || h || e }),
+            /* @__PURE__ */ B("div", { style: { width: "100%" }, children: [
+              typeof s == "string" ? /* @__PURE__ */ w(qp, { small: t, style: i, children: s }) : s,
+              a && (typeof a == "string" ? /* @__PURE__ */ w(Gp, { small: t, style: c, children: a }) : a)
             ] })
           ] }),
           /* @__PURE__ */ B(Xp, { children: [
@@ -7213,6 +7213,7 @@ const Up = P.div`
 `, Hp = P.div`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 12px;
 `, Ii = P(jp)`
   position: relative;
