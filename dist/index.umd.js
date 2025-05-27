@@ -46,9 +46,9 @@ Check the top-level render call using <`+P+">.")}return x}}function Aa(d,x){{if(
   font-size: 16px;
   font-weight: 600;
   padding: 12px 24px;
-  width: ${e=>e.fullWidth?"100%":"250px"};
-  min-width: 100px;
-  height: 46px;
+  width: ${e=>e.fullWidth?"100%":e.width||"250px"};
+  ${e=>!e.width&&"min-width: 100px"};
+  height: ${e=>e.height||"46px"};
   border-radius: 12px;
   text-align: center;
   align-items: center;
