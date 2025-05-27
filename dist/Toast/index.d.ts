@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-export declare function Toast({ children, duration, action, type, close, addedAt, showProgress, progressColor, showIcon }: PropsWithChildren<ToastProps>): JSX.Element;
+export declare function Toast({ children, duration, action, type, close, addedAt, icon, showProgress, progressColor, showIcon, showCloseButton }: PropsWithChildren<ToastProps>): JSX.Element;
 export interface ToastProps {
     duration: number;
     action?: ToastAction;
@@ -8,6 +8,8 @@ export interface ToastProps {
     showProgress?: boolean;
     progressColor?: string;
     showIcon?: boolean;
+    icon?: React.ReactNode;
+    showCloseButton?: boolean;
     close: (...args: any[]) => any;
 }
 export type ToastType = "error" | "success" | "info";

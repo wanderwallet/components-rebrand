@@ -14,6 +14,8 @@ export interface ToastData {
   progressColor?: string;
   showIcon?: boolean;
   position?: ToastPosition;
+  showCloseButton?: boolean;
+  icon?: React.ReactNode;
 }
 
 export interface ToastDataWithID extends ToastData {
