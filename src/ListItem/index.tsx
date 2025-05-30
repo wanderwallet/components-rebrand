@@ -99,7 +99,10 @@ export function ListItem({
         <>
           <AdvancedWrapper
             expanded={expanded}
-            onClick={() => setExpanded((prev) => !prev)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setExpanded((prev) => !prev);
+            }}
           >
             <HorizontalLine active={active} />
             <div
@@ -135,6 +138,7 @@ export function ListItem({
               opacity: { duration: 0.2, delay: expanded ? 0.1 : 0 }
             }}
             style={{ overflow: "hidden" }}
+            onClick={(e) => e.stopPropagation()}
           >
             <AnimatePresence mode="wait">
               {expanded && (
