@@ -52,13 +52,16 @@ export function ListItem({
     >
       <NonExpandableWrapper height={memoizedHeight}>
         <ContentWrapper>
-          {!hideSquircle || img ? (
-            <IconWrapper small={small} img={img} squircleSize={squircleSize}>
-              <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
-            </IconWrapper>
-          ) : (
-            <div style={{ flexShrink: 0 }}>{leftIcon || icon || children}</div>
-          )}
+          {(leftIcon || icon || img || children) &&
+            (!hideSquircle || img ? (
+              <IconWrapper small={small} img={img} squircleSize={squircleSize}>
+                <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
+              </IconWrapper>
+            ) : (
+              <div style={{ flexShrink: 0 }}>
+                {leftIcon || icon || children}
+              </div>
+            ))}
           <div style={{ width: "100%" }}>
             {typeof title === "string" ? (
               <ItemName small={small} style={titleStyle as any}>
