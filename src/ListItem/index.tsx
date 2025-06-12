@@ -174,6 +174,7 @@ const Wrapper = styled.div<{
 }>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   border-radius: 12px;
   overflow: hidden;
   padding: ${(props) => props.padding}px;
