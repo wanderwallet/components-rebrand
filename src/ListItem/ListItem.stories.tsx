@@ -93,5 +93,7 @@ Children.args = {
       width={50}
       alt="Alternate"
     />
-  )
+  ),
+  expandable: true,
+  expandableContent: <div>Expandable content</div>
 };

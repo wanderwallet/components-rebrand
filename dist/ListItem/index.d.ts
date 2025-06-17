@@ -1,6 +1,8 @@
 import type { DragControls } from "framer-motion";
 import { CSSProperties, HTMLProps, ReactNode } from "react";
-export declare function ListItem({ children, small, active, height, padding, title, titleStyle, subtitle, subtitleStyle, subtitleExtra, subtitleExtraStyle, img, icon, leftIcon, rightIcon, dragControls, showArrow, squircleSize, hideSquircle, ...props }: Props & HTMLProps<HTMLDivElement>): JSX.Element;
+export declare function ListItem({ children, small, active, height, padding, title, titleStyle, subtitle, subtitleStyle, subtitleExtra, subtitleExtraStyle, img, icon, leftIcon, rightIcon, dragControls, expandableContent, expandedText, collapsedText, expandable, showArrow, squircleSize, hideSquircle, ...props }: Omit<Props & HTMLProps<HTMLDivElement>, "title"> & {
+    title: ReactNode;
+}): JSX.Element;
 export declare const ListItemIcon: import("styled-components").StyledComponent<"div", import("styled-components").DefaultTheme, {}, never>;
 export declare const ListItemImg: import("styled-components").StyledComponent<"img", import("styled-components").DefaultTheme, {
     alt: "icon";
@@ -25,5 +27,9 @@ interface Props {
     hideSquircle?: boolean;
     height?: number | string;
     padding?: number;
+    expandable?: boolean;
+    expandedText?: string;
+    collapsedText?: string;
+    expandableContent?: ReactNode;
 }
 export {};

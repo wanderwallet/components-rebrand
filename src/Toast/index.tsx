@@ -32,9 +32,11 @@ export function Toast({
   type = "info",
   close,
   addedAt,
+  icon,
   showProgress = false,
   progressColor,
-  showIcon = true
+  showIcon = true,
+  showCloseButton = true
 }: PropsWithChildren<ToastProps>) {
   const [progress, setProgress] = useState<number>(100);
   const progressRef = useRef<number>(100);
@@ -84,16 +86,19 @@ export function Toast({
   return (
     <ToastWrapper>
       <ChildrenWithIcon>
-        {showIcon && <Icon as={getIconComponent(type)} type={type} />}
+        {showIcon &&
+          (icon ? icon : <Icon as={getIconComponent(type)} type={type} />)}
         <ChildrenWrapper>{children}</ChildrenWrapper>
       </ChildrenWithIcon>
       <Actions>
         {action && (
           <ActionButton onClick={handleActionClick}>{action.name}</ActionButton>
         )}
-        <CloseButton onClick={close}>
-          <XIcon />
-        </CloseButton>
+        {showCloseButton && (
+          <CloseButton onClick={close}>
+            <XIcon />
+          </CloseButton>
+        )}
       </Actions>
       {showProgress && progress > 0 && (
         <Progress type={type} progress={progress} color={progressColor} />
@@ -110,6 +115,8 @@ export interface ToastProps {
   showProgress?: boolean;
   progressColor?: string;
   showIcon?: boolean;
+  icon?: React.ReactNode;
+  showCloseButton?: boolean;
   close: (...args: any[]) => any;
 }
 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Loading } from "../Loading";
+import React from "react";
 
 export const Button = styled.button.attrs<ButtonProps>((props) => ({
   children: props.loading ? (
@@ -21,9 +22,9 @@ export const Button = styled.button.attrs<ButtonProps>((props) => ({
   font-size: 16px;
   font-weight: 600;
   padding: 12px 24px;
-  width: ${(props) => (props.fullWidth ? "100%" : "250px")};
-  min-width: 100px;
-  height: 46px;
+  width: ${(props) => (props.fullWidth ? "100%" : props.width || "250px")};
+  ${(props) => !props.width && `min-width: 100px`};
+  height: ${(props) => props.height || "46px"};
   border-radius: 12px;
   text-align: center;
   align-items: center;
@@ -59,6 +60,8 @@ type IconPosition = "left" | "right";
 export interface ButtonProps {
   variant?: Variant;
   fullWidth?: boolean;
+  height?: React.CSSProperties["height"];
+  width?: React.CSSProperties["width"];
   icon?: React.ReactNode;
   iconPosition?: IconPosition;
   disabled?: boolean;

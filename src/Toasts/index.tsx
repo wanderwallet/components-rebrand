@@ -72,6 +72,8 @@ export const Toasts = ({ setToasts }: ToastsProps) => {
                 showProgress={toast.showProgress}
                 progressColor={toast.progressColor}
                 showIcon={toast.showIcon}
+                icon={toast.icon}
+                showCloseButton={toast.showCloseButton}
                 key={toast.id}
               >
                 {renderContent(toast.content, toast.id)}

@@ -1,10 +1,11 @@
 import type { DragControls } from "framer-motion";
-import { CSSProperties, HTMLProps, ReactNode, useMemo } from "react";
+import { CSSProperties, HTMLProps, ReactNode, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ReorderIcon from "../ReorderIcon";
 import styled from "styled-components";
 import Squircle from "../Squircle";
 import { Text } from "../Text";
-import { ChevronRight } from "@untitled-ui/icons-react";
+import { ChevronDown, ChevronRight, ChevronUp } from "@untitled-ui/icons-react";
 
 export function ListItem({
   children,
@@ -23,11 +24,17 @@ export function ListItem({
   leftIcon,
   rightIcon,
   dragControls,
+  expandableContent,
+  expandedText = "Hide",
+  collapsedText = "Show",
+  expandable = false,
   showArrow = false,
   squircleSize = small ? 32 : 48,
   hideSquircle = false,
   ...props
-}: Props & HTMLProps<HTMLDivElement>) {
+}: Omit<Props & HTMLProps<HTMLDivElement>, "title"> & { title: ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
+
   const memoizedHeight = useMemo(() => {
     if (height) return height;
     if (!hideSquircle && squircleSize) return squircleSize + 2 * (padding ?? 8);
@@ -43,42 +50,118 @@ export function ListItem({
       padding={padding}
       {...(props as any)}
     >
-      <ContentWrapper>
-        {!hideSquircle || img ? (
-          <IconWrapper small={small} img={img} squircleSize={squircleSize}>
-            <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
-          </IconWrapper>
-        ) : (
-          leftIcon || icon || children
-        )}
-        <div>
-          <ItemName small={small} style={titleStyle}>
-            {title}
-          </ItemName>
-          {subtitle && (
-            <ItemSubtitle small={small} style={subtitleStyle}>
-              {subtitle}
-            </ItemSubtitle>
+      <NonExpandableWrapper height={memoizedHeight}>
+        <ContentWrapper>
+          {(leftIcon || icon || img || children) &&
+            (!hideSquircle || img ? (
+              <IconWrapper small={small} img={img} squircleSize={squircleSize}>
+                <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
+              </IconWrapper>
+            ) : (
+              <div style={{ flexShrink: 0 }}>
+                {leftIcon || icon || children}
+              </div>
+            ))}
+          <div style={{ width: "100%" }}>
+            {typeof title === "string" ? (
+              <ItemName small={small} style={titleStyle as any}>
+                {title}
+              </ItemName>
+            ) : (
+              title
+            )}
+            {subtitle &&
+              (typeof subtitle === "string" ? (
+                <ItemSubtitle small={small} style={subtitleStyle as any}>
+                  {subtitle}
+                </ItemSubtitle>
+              ) : (
+                subtitle
+              ))}
+          </div>
+        </ContentWrapper>
+        <RightWrapper>
+          {subtitleExtra && (
+            <ItemSubtitleExtra small={small} style={subtitleExtraStyle}>
+              {subtitleExtra}
+            </ItemSubtitleExtra>
           )}
-        </div>
-      </ContentWrapper>
-      <RightWrapper>
-        {subtitleExtra && (
-          <ItemSubtitleExtra small={small} style={subtitleExtraStyle}>
-            {subtitleExtra}
-          </ItemSubtitleExtra>
-        )}
-        {rightIcon &&
-          (!hideSquircle ? (
-            <IconWrapper small={small} squircleSize={squircleSize}>
-              <ListItemIcon>{rightIcon}</ListItemIcon>
-            </IconWrapper>
-          ) : (
-            rightIcon
-          ))}
-        {!dragControls && showArrow && <ArrowIcon />}
-        {dragControls && <ReorderIcon dragControls={dragControls} />}
-      </RightWrapper>
+          {rightIcon &&
+            (!hideSquircle ? (
+              <IconWrapper small={small} squircleSize={squircleSize}>
+                <ListItemIcon>{rightIcon}</ListItemIcon>
+              </IconWrapper>
+            ) : (
+              rightIcon
+            ))}
+          {!dragControls && showArrow && <ArrowIcon />}
+          {dragControls && <ReorderIcon dragControls={dragControls} />}
+        </RightWrapper>
+      </NonExpandableWrapper>
+      {expandable && (
+        <>
+          <AdvancedWrapper
+            expanded={expanded}
+            onClick={(e) => {
+              e.stopPropagation();
+              setExpanded((prev) => !prev);
+            }}
+          >
+            <HorizontalLine active={active} />
+            <div
+              style={{
+                display: "flex",
+                gap: 4,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Text
+                style={{ whiteSpace: "nowrap" }}
+                variant="secondary"
+                size="xs"
+                weight="medium"
+                noMargin
+              >
+                {expanded ? expandedText : collapsedText}
+              </Text>
+              <Action as={expanded ? ChevronUp : ChevronDown} />
+            </div>
+            <HorizontalLine active={active} />
+          </AdvancedWrapper>
+          <motion.div
+            initial={false}
+            animate={{
+              height: expanded ? "auto" : 0,
+              opacity: expanded ? 1 : 0
+            }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut",
+              opacity: { duration: 0.2, delay: expanded ? 0.1 : 0 }
+            }}
+            style={{ overflow: "hidden" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <AnimatePresence mode="wait">
+              {expanded && (
+                <motion.div
+                  key="expandable-content"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{
+                    duration: 0.25,
+                    ease: "easeOut"
+                  }}
+                >
+                  <ExpandableWrapper>{expandableContent}</ExpandableWrapper>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </>
+      )}
     </Wrapper>
   );
 }
@@ -90,13 +173,11 @@ const Wrapper = styled.div<{
   padding?: number;
 }>`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   border-radius: 12px;
   overflow: hidden;
-  cursor: pointer;
   padding: ${(props) => props.padding}px;
-  height: ${(props) => props.height};
   box-sizing: border-box;
   transition: all 0.23s ease-in-out;
 
@@ -108,9 +189,26 @@ const Wrapper = styled.div<{
   }
 `;
 
+const NonExpandableWrapper = styled.div<{ height?: number | string }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  height: ${(props) => props.height};
+  width: 100%;
+`;
+
+const ExpandableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 12px;
 `;
 
@@ -187,6 +285,46 @@ const RightWrapper = styled.div`
   gap: 8px;
 `;
 
+const AdvancedWrapper = styled.div<{ expanded: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: center;
+  padding: ${(props) => `1rem 0 ${props.expanded ? "1rem" : "0"} 0`};
+  cursor: pointer;
+
+  transition: all 0.23s ease-in-out;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+`;
+
+const Action = styled(ChevronDown)`
+  cursor: pointer;
+  font-size: 1.25rem;
+  width: 1rem;
+  height: 1rem;
+  color: ${(props) => props.theme.tertiaryText};
+`;
+
+const HorizontalLine = styled.div<{
+  active?: boolean;
+  height?: number;
+  marginVertical?: number;
+}>`
+  width: 100%;
+  height: ${({ height }) => height || 1}px;
+  background: ${({ theme, active }) =>
+    active ? theme.borderDefault : theme.borderSecondary};
+  margin: ${({ marginVertical }) => marginVertical || 0}px 0;
+`;
+
 interface Props {
   small?: boolean;
   active?: boolean;
@@ -206,4 +344,8 @@ interface Props {
   hideSquircle?: boolean;
   height?: number | string;
   padding?: number;
+  expandable?: boolean;
+  expandedText?: string;
+  collapsedText?: string;
+  expandableContent?: ReactNode;
 }
