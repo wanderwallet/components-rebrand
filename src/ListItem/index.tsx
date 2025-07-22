@@ -58,7 +58,9 @@ export function ListItem({
                 <ListItemIcon>{leftIcon || icon || children}</ListItemIcon>
               </IconWrapper>
             ) : (
-              <div style={{ flexShrink: 0 }}>
+              <div
+                style={{ flexShrink: 0, display: "flex", alignItems: "center" }}
+              >
                 {leftIcon || icon || children}
               </div>
             ))}
