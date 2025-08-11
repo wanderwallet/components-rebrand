@@ -1,6 +1,6 @@
 import { CSSProperties, HTMLProps, ReactNode } from "react";
 import { InputStatus } from "../hooks";
-export declare function Input({ label, fullWidth, sizeVariant, status, disabled, variant, iconLeft, iconRight, errorMessage, special, inputContainerStyle, labelStyle, type, onBlur, stacked, ...props }: SharedProps & InputProps & HTMLProps<HTMLInputElement>): JSX.Element;
+export declare function Input({ label, fullWidth, sizeVariant, status, disabled, variant, iconLeft, iconRight, errorMessage, special, inputContainerStyle, labelStyle, type, inputFooter, onBlur, stacked, ...props }: SharedProps & InputProps & HTMLProps<HTMLInputElement>): JSX.Element;
 type InputSize = "small" | "normal" | "large";
 type InputVariant = "default" | "search" | "dropdown";
 export interface SharedProps {
@@ -14,6 +14,7 @@ export interface SharedProps {
     stacked?: boolean;
     inputContainerStyle?: CSSProperties;
     labelStyle?: CSSProperties;
+    inputFooter?: ReactNode;
 }
 export interface InputProps {
     iconLeft?: ReactNode;
