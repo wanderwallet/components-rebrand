@@ -1208,7 +1208,7 @@ function Im({
         ]
       }
     ),
-    r === "error" && /* @__PURE__ */ w(Ic, { children: c })
+    r === "error" && c && /* @__PURE__ */ w(Ic, { children: c })
   ] });
 }
 const Wi = P.div`

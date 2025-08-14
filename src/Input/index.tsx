@@ -151,7 +151,9 @@ export function Input({
         </BottomRow>
         {inputFooter}
       </InputWrapper>
-      {status === "error" && <ErrorMsg>{errorMessage}</ErrorMsg>}
+      {status === "error" && errorMessage && (
+        <ErrorMsg>{errorMessage}</ErrorMsg>
+      )}
     </>
   );
 }
