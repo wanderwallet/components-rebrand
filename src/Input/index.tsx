@@ -35,6 +35,7 @@ export function Input({
   inputContainerStyle,
   labelStyle,
   type = "text",
+  inputFooter,
   onBlur,
   stacked,
   ...props
@@ -148,8 +149,11 @@ export function Input({
             <IconWrapper position="right">{RightIconComponent}</IconWrapper>
           )}
         </BottomRow>
+        {inputFooter}
       </InputWrapper>
-      {status === "error" && <ErrorMsg>{errorMessage}</ErrorMsg>}
+      {status === "error" && errorMessage && (
+        <ErrorMsg>{errorMessage}</ErrorMsg>
+      )}
     </>
   );
 }
@@ -168,6 +172,7 @@ export interface SharedProps {
   stacked?: boolean;
   inputContainerStyle?: CSSProperties;
   labelStyle?: CSSProperties;
+  inputFooter?: ReactNode;
 }
 
 export interface InputProps {
@@ -180,7 +185,7 @@ export interface InputProps {
 export const InputWrapper = styled.div<SharedProps>`
   position: relative;
   display: flex;
-  flex-direction: ${props => props.stacked ? 'column' : 'row'};
+  flex-direction: ${(props) => (props.stacked ? "column" : "row")};
   gap: 4px;
   align-items: center;
   height: ${(props) => heights[props.sizeVariant ?? "normal"]};
@@ -351,5 +356,5 @@ const BottomRow = styled.div<{ stacked?: boolean }>`
   gap: 4px;
   align-items: center;
   width: 100%;
-  flex: ${props => props.stacked ? '0' : '1'};
+  flex: ${(props) => (props.stacked ? "0" : "1")};
 `;
