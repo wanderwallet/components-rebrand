@@ -88,7 +88,10 @@ export function Input({
     if (blurTimeout) clearTimeout(blurTimeout);
     setIsFocused(true);
     props?.onChange?.({
-      target: { value: "" }
+      target: {
+        value: "",
+        name: props?.name
+      }
     } as React.ChangeEvent<HTMLInputElement>);
   };
 
