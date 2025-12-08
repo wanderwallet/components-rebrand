@@ -307,6 +307,7 @@ export const IconWrapper = styled.div<{ position: "left" | "right" }>`
   font-weight: 500;
   color: #666;
   cursor: pointer;
+  display: flex;
 `;
 
 const SearchIcon = styled(SearchSm)<{ disabled?: boolean }>`
