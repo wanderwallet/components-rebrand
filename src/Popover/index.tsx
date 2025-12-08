@@ -5,7 +5,7 @@ import {
   useRef,
   useState
 } from "react";
-import { Position, getPosition, TooltipPosition } from "../Tooltip/position";
+import { Position, getPosition, PopoverPosition } from "./position";
 import { AnimatePresence, motion } from "framer-motion";
 import { Card } from "../Card";
 import styled from "styled-components";
@@ -78,7 +78,7 @@ export interface PopoverProps {
   content: ReactNode;
   position?: Position;
   mode?: "click" | "hover";
-  customPos?: TooltipPosition;
+  customPos?: PopoverPosition;
 }
 
 const PopoverWrapper = styled.div`

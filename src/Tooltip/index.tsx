@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Position, getPosition, getArrowPosition } from "./position";
+import { PropsWithChildren, ReactNode, useId } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { Position, getPlace } from "./position";
 import styled from "styled-components";
 
 export function Tooltip({
@@ -10,42 +10,27 @@ export function Tooltip({
   position = "top",
   ...props
 }: PropsWithChildren<TooltipProps>) {
-  const [isOpen, setOpen] = useState(false);
+  const tooltipId = useId();
+  const place = getPlace(position);
+
+  const tooltipContent =
+    typeof content === "string" || typeof content === "number"
+      ? String(content)
+      : content;
 
   return (
-    <TooltipWrapper
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      underline={underline}
-    >
-      <AnimatePresence>
-        {isOpen && (
-          <TooltipElement
-            {...props}
-            position={position}
-            style={getPosition(position)}
-            initial={{
-              opacity: 0,
-              transform:
-                (getPosition(position)?.transform || "") + " scale(.95)"
-            }}
-            animate={{
-              opacity: 1,
-              transform: (getPosition(position)?.transform || "") + " scale(1)"
-            }}
-            exit={{
-              opacity: 0,
-              transform:
-                (getPosition(position)?.transform || "") + " scale(.95)"
-            }}
-            transition={{ duration: 0.23, ease: "easeInOut" }}
-          >
-            {content}
-          </TooltipElement>
-        )}
-      </AnimatePresence>
-      {children}
-    </TooltipWrapper>
+    <>
+      <TooltipWrapper
+        data-tooltip-id={tooltipId}
+        data-tooltip-place={place}
+        underline={underline}
+      >
+        {children}
+      </TooltipWrapper>
+      <StyledReactTooltip id={tooltipId} place={place} opacity={1} {...props}>
+        {tooltipContent}
+      </StyledReactTooltip>
+    </>
   );
 }
 
@@ -65,46 +50,43 @@ const TooltipWrapper = styled.div<{ underline?: boolean }>`
   ${(props) => (props.underline ? "cursor: pointer;" : "")}
 `;
 
-const TooltipElement = styled(motion.div)<{ position: Position }>`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 15px;
-  gap: 0px 10px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
-  background-color: ${(props) => props.theme.backgroundSecondary};
-  z-index: 100;
-  width: max-content;
-  min-width: 109px;
-  line-height: 19px;
+const StyledReactTooltip = styled(ReactTooltip)`
+  background-color: ${(props) => props.theme.backgroundSecondary} !important;
+  background: ${(props) => props.theme.backgroundSecondary} !important;
+  color: #ffffff !important;
+  padding: 10px 15px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 19px !important;
+  min-width: 109px !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14) !important;
+  z-index: 99999 !important;
+  --rt-opacity: 1 !important;
 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+  --rt-transition-show-delay: 0.23s;
+  --rt-transition-closing-delay: 0.23s;
+  transform-origin: center;
+  will-change: opacity, transform;
 
-  &::after {
-    position: absolute;
-    content: "";
-    border: 7.5px solid;
-    pointer-events: none;
-    border-color: ${(props) =>
-        props.position.startsWith("top")
-          ? props.theme.backgroundSecondary
-          : "transparent"}
-      ${(props) =>
-        props.position.startsWith("right")
-          ? props.theme.backgroundSecondary
-          : "transparent"}
-      ${(props) =>
-        props.position.startsWith("bottom")
-          ? props.theme.backgroundSecondary
-          : "transparent"}
-      ${(props) =>
-        props.position.startsWith("left")
-          ? props.theme.backgroundSecondary
-          : "transparent"};
-    ${(props) => getArrowPosition(props.position)}
+  /* Arrow styling */
+  &[data-place^="top"]::after {
+    border-color: ${(props) => props.theme.backgroundSecondary} transparent
+      transparent transparent !important;
+  }
+
+  &[data-place^="bottom"]::after {
+    border-color: transparent transparent
+      ${(props) => props.theme.backgroundSecondary} transparent !important;
+  }
+
+  &[data-place^="left"]::after {
+    border-color: transparent transparent transparent
+      ${(props) => props.theme.backgroundSecondary} !important;
+  }
+
+  &[data-place^="right"]::after {
+    border-color: transparent ${(props) => props.theme.backgroundSecondary}
+      transparent transparent !important;
   }
 `;

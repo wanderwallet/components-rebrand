@@ -32,6 +32,7 @@
     "axios": "^1.6.7",
     "framer-motion": "^7.5.3",
     "nanoid": "^4.0.1",
+    "react-tooltip": "^5.30.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
