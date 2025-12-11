@@ -1,6 +1,5 @@
-ArConnect Components Library
+Wander Components Library
 ============================
-
 
 Setup
 -----
@@ -19,8 +18,8 @@ You can find some simple global styles / CSS reset in this repo, at:
 
 - `.storybook/preview-head.html`
 
-Additionally, you can find a more complex example in https://github.com/arconnectio/ArConnect/:
+Additionally, you can find a more complex example in <https://github.com/wanderwallet/Wander>:
 
-- `ArConnect/src/popup.html`
-- `ArConnect/assets/popup.css`
-- `ArConnect/src/components/hardware/HardwareWalletTheme.tsx`
+- `Wander/src/popup.html`
+- `Wander/assets/popup.css`
+- `Wander/src/components/hardware/HardwareWalletTheme.tsx`
