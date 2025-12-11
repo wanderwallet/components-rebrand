@@ -13,22 +13,24 @@ export function Tooltip({
   const tooltipId = useId();
   const place = getPlace(position);
 
-  const tooltipContent =
-    typeof content === "string" || typeof content === "number"
-      ? String(content)
-      : content;
-
   return (
     <>
       <TooltipWrapper
         data-tooltip-id={tooltipId}
         data-tooltip-place={place}
+        data-tooltip-position-strategy="fixed"
         underline={underline}
       >
         {children}
       </TooltipWrapper>
-      <StyledReactTooltip id={tooltipId} place={place} opacity={1} {...props}>
-        {tooltipContent}
+      <StyledReactTooltip
+        id={tooltipId}
+        place={place}
+        opacity={1}
+        positionStrategy="fixed"
+        {...props}
+      >
+        {content}
       </StyledReactTooltip>
     </>
   );
@@ -52,7 +54,6 @@ const TooltipWrapper = styled.div<{ underline?: boolean }>`
 
 const StyledReactTooltip = styled(ReactTooltip)`
   background-color: ${(props) => props.theme.backgroundSecondary} !important;
-  background: ${(props) => props.theme.backgroundSecondary} !important;
   color: #ffffff !important;
   padding: 10px 15px !important;
   border-radius: 10px !important;
@@ -63,30 +64,8 @@ const StyledReactTooltip = styled(ReactTooltip)`
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14) !important;
   z-index: 99999 !important;
   --rt-opacity: 1 !important;
+  opacity: 1 !important;
 
   --rt-transition-show-delay: 0.23s;
   --rt-transition-closing-delay: 0.23s;
-  transform-origin: center;
-  will-change: opacity, transform;
-
-  /* Arrow styling */
-  &[data-place^="top"]::after {
-    border-color: ${(props) => props.theme.backgroundSecondary} transparent
-      transparent transparent !important;
-  }
-
-  &[data-place^="bottom"]::after {
-    border-color: transparent transparent
-      ${(props) => props.theme.backgroundSecondary} transparent !important;
-  }
-
-  &[data-place^="left"]::after {
-    border-color: transparent transparent transparent
-      ${(props) => props.theme.backgroundSecondary} !important;
-  }
-
-  &[data-place^="right"]::after {
-    border-color: transparent ${(props) => props.theme.backgroundSecondary}
-      transparent transparent !important;
-  }
 `;
