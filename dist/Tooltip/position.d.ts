@@ -1,10 +1,3 @@
-export type Position = "top" | "topStart" | "topEnd" | "left" | "bottom" | "bottomStart" | "bottomEnd" | "right";
-export interface TooltipPosition {
-    top?: string;
-    left?: string;
-    bottom?: string;
-    right?: string;
-    transform?: string;
-}
-export declare function getPosition(position: Position): TooltipPosition;
-export declare function getArrowPosition(position: Position): string;
+import { PlacesType } from "react-tooltip";
+export type Position = "top" | "topStart" | "topEnd" | "left" | "bottom" | "bottomStart" | "bottomEnd" | "right" | "leftStart" | "leftEnd" | "rightStart" | "rightEnd";
+export declare function getPlace(position: Position): PlacesType;
